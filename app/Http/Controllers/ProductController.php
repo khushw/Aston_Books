@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Product;
 class ProductController extends Controller
 {
     /**
@@ -11,9 +11,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //shows all the listed books for sale.
     public function index()
     {
-        //
+        //if want to restrict then add ->take(whatever number)->get();
+        //paginate creates a new page for every x amount of posts listed. 
+        $products = Product::orderBy('created_at','desc')->paginate(1);
+        return view('products.index')->with('products',$products);
     }
 
     /**
@@ -43,9 +47,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //function allows you to view a singular product on its seperate page.
     public function show($id)
     {
         //
+        $product  = Product::find($id);
+        return view ('products.show')->with('product',$product);
     }
 
     /**

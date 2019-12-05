@@ -19,6 +19,7 @@
                     <a class = "nav-link" href='/'> Home</a>    
                     <a class = "nav-link" href='/about'> About</a>
                     <a class = "nav-link" href='/services'> Service</a>
+                    <a class = "nav-link" href='/products'> Products</a>
                     
                     <!-- Authentication Links -->
                     @guest
