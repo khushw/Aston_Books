@@ -51,7 +51,7 @@ class ProductController extends Controller
         $product = new Product;
         $product->title = $request->input('title');
         $product->price = $request->input('price');
-        $product->condition_id =$request->input('condition');
+       // $product->condition_id =$request->input('condition');
         $product->save();
 
        //after a successful listing it will display the below message    
@@ -68,7 +68,7 @@ class ProductController extends Controller
      //function allows you to view a singular product on its seperate page.
     public function show($id)
     {
-        //
+        //finds the product and then returns the product show page for individual page
         $product  = Product::find($id);
         return view ('products.show')->with('product',$product);
     }
@@ -81,7 +81,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        //finds the product and then returns the edit page
+        $product  = Product::find($id);
+        return view ('products.edit')->with('product',$product);
     }
 
     /**
@@ -94,6 +96,21 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        //valide the following fields from the form to ensure users are filling in correct information
+        $this->validate($request,[
+            'title' => 'required',
+            'price' => 'required'
+            //'condition'=>'required'
+        ]);
+        //create Product and store its details in the database
+        $product =  Product::find($id);
+        $product->title = $request->input('title');
+        $product->price = $request->input('price');
+       // $product->condition_id =$request->input('condition');
+        $product->save();
+
+       //after a successful listing it will display the below message    
+        return redirect('/products')->with('success', 'Your Listing is now updated!');
     }
 
     /**
@@ -105,5 +122,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        $product = Product::find($id);
+        $product->delete();
+
+        return redirect('/products')->with('success', 'Your Listing has been removed');
     }
 }

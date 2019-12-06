@@ -8,4 +8,12 @@
 <div>
 <hr>
 <small>Price: {{$product->price}}</small>
+<hr>
+<a href='/products/{{ $product->id}}/edit' class='btn btn-default'> Edit Listing </a>
+
+{!!Form::open(['action'=> ['ProductController@destroy', $product->id], 'method' => 'POST' , 'class'=> 'pull-right'])!!}
+ {{-- //includes the hidden spoofing method and the submit button --}}
+    {{Form::hidden('_method','DELETE')}}
+    {{Form::submit('Delete',['class' => 'btn btn-danger'])}}
+{!!Form::close() !!}
 @endsection
