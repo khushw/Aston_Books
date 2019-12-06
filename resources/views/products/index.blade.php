@@ -13,7 +13,7 @@
     @endforeach
     {{$products->links()}} <!-- displays the page number links for after x number of products appear) -->
 @else 
-    <p>No Post found</p>
+    <p>Be the first to list a product!</p>
 @endif
 
 @endsection

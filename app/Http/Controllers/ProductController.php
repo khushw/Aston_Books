@@ -44,14 +44,14 @@ class ProductController extends Controller
         //valide the following fields from the form to ensure users are filling in correct information
         $this->validate($request,[
             'title' => 'required',
-            'price' => 'required'
-            //'condition'=>'required'
+            'price' => 'required',
+            'condition'=>'required'
         ]);
         //create Product and store its details in the database
         $product = new Product;
         $product->title = $request->input('title');
         $product->price = $request->input('price');
-       // $product->condition_id =$request->input('condition');
+        $product->condition_id =$request->input('condition');
         $product->save();
 
        //after a successful listing it will display the below message    
