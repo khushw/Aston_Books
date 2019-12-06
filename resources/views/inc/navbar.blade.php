@@ -18,9 +18,23 @@
                 <ul class="navbar-nav ml-auto">
                     <a class = "nav-link" href='/'> Home</a>    
                     <a class = "nav-link" href='/about'> About</a>
-                    <a class = "nav-link" href='/services'> Service</a>
-                    <a class = "nav-link" href='/products'> Products</a>
-                    
+
+                    <!-- Below code creates the dropwdown carrot to view books, create books and buy books -->
+                    <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href='#' role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Products <span class="caret"></span>
+                            </a>
+                            
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href='/products'>
+                                  Books on Sale  
+                                </a>
+                                 <a class="dropdown-item" href='/products/create'>
+                                  Sell Books  
+                                </a>
+                            </div>
+                        </li>
+                        
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">

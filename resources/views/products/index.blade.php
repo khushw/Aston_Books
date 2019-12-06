@@ -6,7 +6,7 @@
 
 @if(count($products)>0)
     @foreach($products as $product)
-        <div class="well">
+        <div class="list-group-item">
             <h3><a href="/products/{{$product->id}}">{{$product->title}}</a></h3>
             <small> Price of the product {{$product->price}}</small>
         </div>
