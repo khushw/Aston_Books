@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Condition;
+use DB;
 class ProductController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class ProductController extends Controller
     {
         //if want to restrict then add ->take(whatever number)->get();
         //paginate creates a new page for every x amount of posts listed. 
-        $products = Product::orderBy('created_at','desc')->paginate(2);
+        $products = Product::orderBy('created_at','desc')->paginate(5);
         return view('products.index')->with('products',$products);
     }
 
@@ -29,8 +30,9 @@ class ProductController extends Controller
     public function create()
     {
         //
-        $condition = Condition::all('id');
-        return view('products.create')->with('condition',$condition);
+        $conditions = DB::table('conditions')->select('id','name')->get();
+        //Condition::all('id');
+        return view('products.create')->with(['conditions' => $conditions]);
     }
 
     /**
@@ -45,13 +47,13 @@ class ProductController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'price' => 'required',
-            'condition'=>'required'
+            'conditionselect'=>'required'
         ]);
         //create Product and store its details in the database
         $product = new Product;
         $product->title = $request->input('title');
         $product->price = $request->input('price');
-        $product->condition_id =$request->input('condition');
+        $product->condition_id =$request->input('conditionselect');
         $product->save();
 
        //after a successful listing it will display the below message    
