@@ -9,7 +9,7 @@ class PagesController extends Controller
     //
     //method to disp
     public function index(){
-        $title = 'Welcome to Aston Books';
+        $title = 'Welcome to Aston Books';           
         // return view('index', compact('title'));  //2 ways of doing this below and this one(passing single value)
         return view('index')->with('title',$title);
     }

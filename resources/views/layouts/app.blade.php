@@ -26,9 +26,12 @@
 </head>
 <body>
     <div id="app"> 
+        {{-- below includes the navbar from the  inc folder --}}
         @include('inc.navbar')
         <main class="py-4">
+            {{-- below includes the messages for succesffully listing the product or vice versa --}}
             @include('inc.messages')
+            {{-- this displays the content from index.blade file currently as that file @extends this one --}}
             @yield('content')
         </main>
     </div>

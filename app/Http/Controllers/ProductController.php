@@ -31,8 +31,12 @@ class ProductController extends Controller
     {
         //
         $conditions = DB::table('conditions')->select('id','name')->get();
+        $categories = DB::table('categories')->select('id','name')->get();
         //Condition::all('id');
-        return view('products.create')->with(['conditions' => $conditions]);
+        return view('products.create')->with([
+                                            'conditions' => $conditions,
+                                            'categories' => $categories
+                                            ]);
     }
 
     /**
@@ -54,9 +58,18 @@ class ProductController extends Controller
         $product->title = $request->input('title');
         $product->price = $request->input('price');
         $product->condition_id =$request->input('conditionselect');
+        $product->description = $request->input('description');
+        $product->author = $request->input('author');
+        $product->book_publisher = $request->input('publisher');
+        $product->weight= $request->input('weight');
+        $product->pages= $request->input('pages');
+        $product->quantity = $request->input('quantity');
+        $product->published_date = $request->input('published_date');
+        $product->category_id =$request->input('categoryselect');
         $product->save();
 
-       //after a successful listing it will display the below message    
+       //after a successful listing it will display the below message
+       //then use the success in the inc (messages file) to display some interactive features    
         return redirect('/products')->with('success', 'Your Product is now listed!');
     }
 
@@ -71,8 +84,18 @@ class ProductController extends Controller
     public function show($id)
     {
         //finds the product and then returns the product show page for individual page
+        
         $product  = Product::find($id);
-        return view ('products.show')->with('product',$product);
+        $conditions=DB::table('conditions')->where('id',$product->condition_id)->value('name');
+        $categories=DB::table('categories')->where('id',$product->category_id)->value('name');
+        $kilosymbol = "kg";
+        $currency = "£";
+        return view ('products.show')->with([   'product'=>$product,
+                                                'conditions'=>$conditions,
+                                                'currency'  => $currency,
+                                                'kilosymbol'=> $kilosymbol,
+                                                'categories' => $categories
+                                            ]);
     }
 
     /**
@@ -85,7 +108,24 @@ class ProductController extends Controller
     {
         //finds the product and then returns the edit page
         $product  = Product::find($id);
-        return view ('products.edit')->with('product',$product);
+        
+        $conditions = DB::table('conditions')->select('id','name')->get();
+        $categories = DB::table('categories')->select('id','name')->get();
+
+        $conditionname = DB::table('conditions')->where('id',$product->condition_id)->value('name');
+        $conditionid = DB::table('conditions')->where('id',$product->condition_id)->value('id');
+
+        $categoriesname = DB::table('categories')->where('id',$product->category_id)->value('name');
+        $categoriesid = DB::table('categories')->where('id', $product->category_id)->value('id');
+
+        return view ('products.edit')->with([   'conditions' => $conditions,
+                                                'product'=>$product,
+                                                'conditionid' =>$conditionid,
+                                                'conditionname' => $conditionname,
+                                                'categories' => $categories,
+                                                'categoriesname' => $categoriesname,
+                                                'categoriesid'   => $categoriesid
+                                            ]);
     }
 
     /**
@@ -108,11 +148,19 @@ class ProductController extends Controller
         $product =  Product::find($id);
         $product->title = $request->input('title');
         $product->price = $request->input('price');
-       // $product->condition_id =$request->input('condition');
+        $product->condition_id =$request->input('conditionselect');
+        $product->description = $request->input('description');
+        $product->author = $request->input('author');
+        $product->book_publisher = $request->input('publisher');
+        $product->weight= $request->input('weight');
+        $product->pages= $request->input('pages');
+        $product->quantity = $request->input('quantity');
+        $product->published_date = $request->input('published_date');
+        $product->category_id =$request->input('categoryselect');
         $product->save();
 
        //after a successful listing it will display the below message    
-        return redirect('/products')->with('success', 'Your Listing is now updated!');
+        return redirect("/products/".$product->id)->with('success', 'Your Listing is now updated!');
     }
 
     /**

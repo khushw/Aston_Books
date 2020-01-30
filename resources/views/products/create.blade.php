@@ -25,23 +25,95 @@
             <form method="POST" action="/products">
                 @csrf
                 
-                {{-- displays the name of the book --}}
+                {{-- name of the book --}}
+                {{-- label is the label for input area --}}
                 <div class="field">
                     <label class="label" for="title">Book Name</label>
+                    
                     <div class="control">
                         <input class="input" type="text" name="title" id="title"> 
                     </div>
-                </div>    
                 
-                {{-- displays the price field --}}
+                </div>    
+
+                {{--  price field --}}
                 <div class="field">
-                    {{-- label is the label for input area --}}
                     <label class="label" for="price">Price</label>
+                    
                     <div class="control">
                         <input class="input" type="number" name="price" id="price"> 
                     </div>
+                
+                </div>
+                    
+                {{-- field for description of the book --}}
+                <div class="field">
+                    <label class="label" for="description">Book Description</label>
+                    
+                    <div class="control">
+                        <textarea class="textarea" name="description" id="description"></textarea> 
+                    </div>
+                
                 </div>
 
+                {{-- author of the book --}}
+                <div class="field">
+                    <label class="label" for="author">Book Author</label>
+                    
+                    <div class="control">
+                        <input class="input" type="text" name="author" id="author"> 
+                    </div>
+                
+                </div>
+
+                {{-- publisher of the book --}}
+                <div class="field">
+                    <label class="label" for="publisher">Book Publisher</label>
+                    
+                    <div class="control">
+                        <input class="input" type="text" name="publisher" id="publisher"> 
+                    </div>
+                
+                </div>
+
+                {{-- book weight --}}
+                <div class="field">
+                    <label class="label" for="weight">Book Weight</label>
+                    
+                    <div class="control">
+                        <input class="input" type="number" name="weight" id="weight" placeholder='Enter weight in KG'> 
+                    </div>
+                
+                </div>
+                
+                {{-- book pages --}}
+                <div class="field">
+                    <label class="label" for="pages">Number of Pages</label>
+                    
+                    <div class="control">
+                        <input class="input" type="number" name="pages" id="pages" placeholder='Enter total number of pages'> 
+                    </div>
+                
+                </div>
+
+                 {{-- book quantity --}}
+                 <div class="field">
+                    <label class="label" for="quantity">Number of Books</label>
+                    
+                    <div class="control">
+                        <input class="input" type="number" name="quantity" id="quantity" placeholder='Enter amount of above books you want to sell'> 
+                    </div>
+                
+                </div>
+
+                {{-- published at date --}}
+                <div class="field">
+                    <label class="label" for="published_date">Book Publish Date</label>
+
+                <div class="control">
+                    <input class="input" type="date" name= "published_date" placeholder="enter year the book was published at">
+                </div>
+                
                 {{-- select different conditions of the book --}}
                 <label class="label">Select Condition</label>
                 <div class="form-group">
@@ -50,11 +122,25 @@
                     <select name="conditionselect" id="condition" class="form-control input-lg dynamic" data-dependent="labSubCat">
                     <option value="{{$conditions}}">Select Condition</option>
                         @foreach($conditions as $co)
-                            <option value="{{$co->name}}">{{$co->name}}</option>
+                            <option value="{{$co->id}}">{{$co->name}}</option>
                         @endforeach
                     </select>
                 </div>   
                 
+
+                {{-- select different categories of the book --}}
+                <label class="label">Select Category</label>
+                <div class="form-group">
+                    {{-- select allows me to create a dropdown --}}
+                    {{-- option allows --}}
+                    <select name="categoryselect" id="categories" class="form-control input-lg dynamic" data-dependent="labSubCat">
+                    <option value="{{$categories}}">Select Category</option>
+                        @foreach($categories as $ca)
+                            <option value="{{$ca->id}}">{{$ca->name}}</option>
+                        @endforeach
+                    </select>
+                </div>   
+
                 <div class="field is-grouped">
                     <div class="control">
                         <button class="button is-link" type="submit">Submit</button>

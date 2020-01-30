@@ -26,7 +26,8 @@ class CreateProductsTable extends Migration
             $table->double('weight')->nullable();
             $table->double('pages')->nullable(); 
             $table->unsignedInteger('user_id')->nullable();
-            $table->unsignedInteger('condition_id')->nullabe(); //to store the condition of the book           
+            $table->unsignedInteger('condition_id')->nullabe(); //to store the condition of the book
+            $table->unsignedInteger('category_id')->nullabe(); //to store the category of the book           
             $table->timestamps();
         });
     }
