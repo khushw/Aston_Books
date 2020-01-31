@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
-        <title>AstonBooks</title>
+        <title>Khush books</title>
 
     </head>
     <body>
@@ -14,3 +14,5 @@
         </div>    
     </body>
 </html>
+
+{{-- not used --}}

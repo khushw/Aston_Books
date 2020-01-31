@@ -37,8 +37,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //function suggest, user belongs to many roles
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+
+    //function suggest, user can list several products
     public function product()
     {
         return $this->hasMany('App\Product');
     }
-}
+
+    // for the current user check the roles the relationship and are there any roles in the roles table
+    //if any roles assigned check the first one
+    public function hasAnyRoles($roles){
+
+        if($this->roles()->whereIn('name',$roles)->first()){
+        //if there is a match than return true
+        return true;
+    }
+        return false;
+    }
+
+    public function hasRole($role){
+
+        if($this->roles()->where('name',$role)->first()){
+        //if there is a match than return true
+        return true;
+    }
+        return false;
+    }
+ }

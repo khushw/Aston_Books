@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Role;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,10 +64,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // create the user
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        // select the role id user and grab first instance of that
+        $role = Role::select('id')->where('name','user')->first();
+
+        //with the created user as show above, we are using the roles relationship on the user model and attach role id that we have selected
+        $user->roles()->attach($role);
+
+        return $user;
     }
 }

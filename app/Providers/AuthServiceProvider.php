@@ -25,6 +25,21 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('manage-users',function($user){
+            return $user->hasRole('admin'); //returns true if the user is a admin
+        });
+        //using gate as it allows you to define certain logic to reduce repitition e.g. if we wnna create a check if user is admin and we change ur mind later, we have to chage that in controller
+        //goes to the auth service prvider gate
+        //then from there goes to the hasRole function in the USersController and checks if they have admin role
+        
+        Gate::define('edit-users',function($user){
+            return $user->hasRole('admin');
+        });
+        //same as above but for deleting users, only permit admin to delete users
+        Gate::define('delete-users',function($user){
+            return $user->hasRole('admin');
+        });
+
+        
     }
 }
