@@ -40,6 +40,9 @@
 <hr>
 <small>Published Date: {{$product->published_date}}</small>
 <hr>
+<hr>
+<small>Seller Name: {{$username}}</small>
+<hr>
 
 {{-- button to navigate user to the edit page  --}}
 <a href='/products/{{ $product->id}}/edit' class='btn btn-default'> Edit Listing </a>

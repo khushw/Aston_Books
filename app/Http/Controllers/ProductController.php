@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Condition;
 use DB;
+use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     /**
@@ -47,6 +48,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        //to get the id of the user 
+        $id = Auth::id();
         //valide the following fields from the form to ensure users are filling in correct information
         $this->validate($request,[
             'title' => 'required',
@@ -58,6 +61,7 @@ class ProductController extends Controller
         $product->title = $request->input('title');
         $product->price = $request->input('price');
         $product->condition_id =$request->input('conditionselect');
+        $product->user_id =$id;
         $product->description = $request->input('description');
         $product->author = $request->input('author');
         $product->book_publisher = $request->input('publisher');
@@ -88,13 +92,15 @@ class ProductController extends Controller
         $product  = Product::find($id);
         $conditions=DB::table('conditions')->where('id',$product->condition_id)->value('name');
         $categories=DB::table('categories')->where('id',$product->category_id)->value('name');
+        $username = DB::table('users')->where('id',$product->user_id)->value('name');
         $kilosymbol = "kg";
         $currency = "£";
         return view ('products.show')->with([   'product'=>$product,
                                                 'conditions'=>$conditions,
                                                 'currency'  => $currency,
                                                 'kilosymbol'=> $kilosymbol,
-                                                'categories' => $categories
+                                                'categories' => $categories,
+                                                'username' => $username
                                             ]);
     }
 
