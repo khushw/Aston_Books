@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Condition;
 
 class ConditionController extends Controller
 {
@@ -14,6 +15,9 @@ class ConditionController extends Controller
     public function index()
     {
         //
+        $conditions = Condition::all();
+
+        return view('conditions.index')->with('conditions',$conditions);
     }
 
     /**
@@ -24,6 +28,7 @@ class ConditionController extends Controller
     public function create()
     {
         //
+        return view('conditions.create');
     }
 
     /**
@@ -35,7 +40,20 @@ class ConditionController extends Controller
     public function store(Request $request)
     {
         //
+        
+        $this->validate($request,[
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $conditions = new Condition;
+        $conditions->name = $request->input('name');
+        $conditions->description = $request->input('description');
+        $conditions->save();
+
+        return redirect('conditions')->with('success', 'Your condition has been created!');
     }
+    
 
     /**
      * Display the specified resource.
@@ -57,6 +75,9 @@ class ConditionController extends Controller
     public function edit($id)
     {
         //
+        $condition = Condition::find($id);
+
+        return view('conditions.edit')->with('condition', $condition);
     }
 
     /**
@@ -69,6 +90,18 @@ class ConditionController extends Controller
     public function update(Request $request, $id)
     {
         //
+        
+        $this->validate($request,[
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $condition =  Condition::find($id);
+        $condition->name = $request->input('name');
+        $condition->description = $request->input('description');
+        $condition->save();
+
+        return redirect('conditions')->with('success', 'Your condition has been updated!');
     }
 
     /**
@@ -80,5 +113,9 @@ class ConditionController extends Controller
     public function destroy($id)
     {
         //
+        $condition = Condition::find($id);
+        $condition->delete();
+
+        return redirect('conditions')->with('success', 'Category has been removed');
     }
 }

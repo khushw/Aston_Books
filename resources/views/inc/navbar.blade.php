@@ -59,6 +59,8 @@
                                 </a>
                                 @can('manage-users')
                                 <a class="dropdown-item" href="{{ route('admin.users.index') }}" > User Management </a>
+                                <a class="dropdown-item" href="{{ route('categories.index') }}" > Manage Categories </a>
+                                <a class="dropdown-item" href="{{ route('conditions.index') }}" > Manage Conditions </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf

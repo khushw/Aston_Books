@@ -20,7 +20,7 @@
     {!! Form::close() !!} --}}
 
     <div id="wrapper">
-        <div id="createproduct" class="container">
+        <div id="editproduct" class="container">
             <h3>Update Books</h3>
         {{-- we use a hidden PUT method to tell browser its a PUT not a POST
             action redirects the user to the product page they edited --}}

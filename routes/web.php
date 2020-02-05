@@ -30,6 +30,8 @@ Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 
 Route::resource('/products', 'ProductController');
+Route::resource('/categories', 'CategoriesController');
+Route::resource('/conditions' ,'ConditionController');
 
 //namespace so we dont need to put admin in front of our controllers
 //prefix adds admin to the start of the url 
