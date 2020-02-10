@@ -1,3 +1,5 @@
+@can('list-edit-products')
+
 @extends('layouts.app')
 
 @section ('content')
@@ -151,3 +153,4 @@
         </div>
     </div>
 @endsection
+@endcan

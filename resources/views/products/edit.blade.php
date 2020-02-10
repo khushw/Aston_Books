@@ -1,7 +1,7 @@
+@can('list-edit-products')
 @extends('layouts.app')
 
 @section ('content')
-
 <h1>Edit Product</h1>
     {{-- {!! Form::open(['action' => ['ProductController@update',$product->id],'method' => 'POST']) !!}
         <div class="form-group">
@@ -153,3 +153,4 @@
         </div>
     </div>
 @endsection
+@endcan

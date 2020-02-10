@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section ('content')
@@ -44,6 +45,7 @@
 <small>Seller Name: {{$username}}</small>
 <hr>
 
+@can('list-edit-products')
 {{-- button to navigate user to the edit page  --}}
 <a href='/products/{{ $product->id}}/edit' class='btn btn-default'> Edit Listing </a>
 
@@ -55,4 +57,5 @@
     {{Form::hidden('_method','DELETE')}}
     {{Form::submit('Delete',['class' => 'btn btn-danger'])}}
 {!!Form::close() !!}
+@endcan
 @endsection

@@ -7,6 +7,7 @@ use App\Product;
 use App\Condition;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Gate;
 class ProductController extends Controller
 {
     /**
@@ -31,6 +32,10 @@ class ProductController extends Controller
     public function create()
     {
         //
+        if(Gate::denies('list-edit-products')){
+            return redirect(route('login'));
+        }
+
         $conditions = DB::table('conditions')->select('id','name')->get();
         $categories = DB::table('categories')->select('id','name')->get();
         //Condition::all('id');
@@ -112,6 +117,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::denies('list-edit-products')){
+            return redirect(route('products.index'));
+        }
         //finds the product and then returns the edit page
         $product  = Product::find($id);
         
@@ -177,7 +185,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //rediret the user back to the products index page is not signed in 
+        if(Gate::denies('list-edit-products')){
+            return redirect(route('products.index'));
+        }
+
         $product = Product::find($id);
         $product->delete();
 

@@ -40,6 +40,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole('admin');
         });
 
+        //only allow a registerd user to list a product for sale aswell as edit a product
+        Gate::define('list-edit-products',function($user){
+            return $user->hasAnyRoles(['user','admin']);
+        });
         
     }
 }
