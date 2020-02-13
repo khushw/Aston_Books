@@ -35,6 +35,7 @@
                 @include("inc.messages")
                 {{-- this displays the content from index.blade file currently as that file @extends this one --}}
                 @yield("content")
+                @yield("extra-js")
            </div>
         </main>
     </div>

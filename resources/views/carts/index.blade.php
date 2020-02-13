@@ -14,6 +14,13 @@
                     <div class="cart-table-item"><a href="/products/{{$item->id}}"> {{$item->model->title}}</a></div>
                     <div class="cart-table-description"> {{$item->model->description}} </div>
                     <div class="cart-table-price"> ${{$item->model->price}} </div>
+                    <div class="cart-table-quantity">  
+                            <select name="quantity">
+                                @for ($i = 0; $i <= $item->model->quantity ; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>    
+                                @endfor
+                            </select>
+                    </div>
                 </div>
             </div>
             <div class="cart-table-row-right">
@@ -71,6 +78,13 @@
                     <div class="cart-table-item"> <a href="/products/{{$item->id}}"> Title:{{$item->model->title}} </a></div>
                     <div class="cart-table-description"> Description:{{$item->model->description}} </div>
                     <div class="cart-table-price"> Price:${{$item->model->price}} </div>
+                    <div class="cart-table-quantity"> 
+                            <select name="quantity">
+                                @for ($i = 0; $i <= $item->model->quantity ; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>    
+                                @endfor
+                            </select>        
+                    </div>
                 </div>  
             </div>
             <div class="cart-table-row-right">
@@ -98,4 +112,13 @@
     @endif
 
 
+@endsection
+
+@section('extra-js')
+    <script>
+       (function(){
+           alert('hi')
+       })(); 
+    </script>
+    
 @endsection
