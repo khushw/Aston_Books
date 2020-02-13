@@ -35,6 +35,7 @@
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Description</th>
                             <th scope="col"><a href="{{route ("conditions.create") }}"><button type="button" class="btn btn-primary float-left">Add Condition</button></a></th>
 
                           </tr>

@@ -18,6 +18,15 @@
                 <ul class="navbar-nav ml-auto">
                     <a class = "nav-link" href='/'> Home</a>    
                     <a class = "nav-link" href='/about'> About</a>
+                    <a class = "nav-link" href='/carts'> Cart 
+                        {{-- display the total number of items in the shopping cart, we dont want to display a 0 so added an if statement --}}
+                        <span class="cart-count">
+                            @if (Cart::instance('default')->count() > 0 )
+                            <span>{{ Cart::instance('default')->count() }}
+                            </span>
+                            @endif
+                        </span>
+                    </a>
 
                     <!-- Below code creates the dropwdown carrot to view books, create books and buy books -->
                     <li class="nav-item dropdown">

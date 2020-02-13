@@ -47,9 +47,17 @@
 
 @can('list-edit-products')
 {{-- button to navigate user to the edit page  --}}
+<form action="{{route('carts.store')}}" method="POST">
+     {{ csrf_field() }}
+    <input type="hidden" name="id" value ="{{ $product->id}}">
+    <input type="hidden" name="title" value ="{{ $product->title}}">
+    <input type="hidden" name="price" value ="{{ $product->price}}">
+     <button type="submit" class="button button-plain"> Add to Cart </button>
+</form>
+{{-- <a href='/products/{{ $product->id}}/edit' class='button'> Add to Cart </a> --}}
+
+
 <a href='/products/{{ $product->id}}/edit' class='btn btn-default'> Edit Listing </a>
-
-
 
 {{-- calling the destroy method in contrller and then remove the listing from the application --}}
 {!!Form::open(['action'=> ['ProductController@destroy', $product->id], 'method' => 'POST' , 'class'=> 'pull-right'])!!}

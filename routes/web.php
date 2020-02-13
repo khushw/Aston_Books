@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/test/richard', function () {
+    return view('test.richard');
+});
 
 
 
@@ -33,6 +33,7 @@ Route::resource('/products', 'ProductController');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/conditions' ,'ConditionController');
 
+
 //namespace so we dont need to put admin in front of our controllers
 //prefix adds admin to the start of the url 
 //admin . adds this to the start of the route
@@ -41,3 +42,17 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('/users', 'UsersController' , ['except' => ['show','create','store']]);
     
 });
+
+
+
+//for the basket
+Route::resource('/carts' ,'CartController');
+Route::get('empty', function (){
+        Cart::instance('saveForLater')->destroy();
+});
+
+Route::post('/carts/switchToSaveForLater/{product}' , 'CartController@switchToSaveForLater')->name('carts.switchToSaveForLater');
+
+//these routes are for the save for later option provided to the users, to remove/delte save for later item and also to add to cart 
+Route::resource('/saveForLater' , 'SaveForLaterController');
+Route::post('/saveForLater/switchToCart/{product}' , 'SaveForLaterController@switchToCart')->name('saveForLater.switchToCart');
