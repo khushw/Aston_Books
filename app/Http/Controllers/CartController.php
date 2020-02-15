@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Cart;
 
 class CartController extends Controller
@@ -47,6 +48,7 @@ class CartController extends Controller
         }
 
         //gets the id price and title of the associated book and add its to the cart
+        //1 in the quantity suggest when the user firt adds an item to the cart it adds 1 item
         Cart::add($request->id, $request->title, 1, $request->price)
             ->associate('App\Product');
 
@@ -85,6 +87,19 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'quantity' => 'required|numeric'
+        ]);
+
+        if($validator->fails()) {
+            session()->flash('error', collect(['Quantity must be numeric and is required']));
+            return response()->json(['success' => false]);
+        }    
+
+        Cart::update($id, $request->quantity);
+
+        session()->flash('success' , 'Quantity was successfully updated');
+        return response()->json(['success' => true], 400);
     }
 
     /**

@@ -9,6 +9,7 @@
         <div class="list-group-item">
             <h3><a href="/products/{{$product->id}}">{{$product->title}}</a></h3>
             <small> Price of the product {{$product->price}}</small>
+            
         </div>
     @endforeach
     {{$products->links()}} <!-- displays the page number links for after x number of products appear) -->

@@ -56,3 +56,7 @@ Route::post('/carts/switchToSaveForLater/{product}' , 'CartController@switchToSa
 //these routes are for the save for later option provided to the users, to remove/delte save for later item and also to add to cart 
 Route::resource('/saveForLater' , 'SaveForLaterController');
 Route::post('/saveForLater/switchToCart/{product}' , 'SaveForLaterController@switchToCart')->name('saveForLater.switchToCart');
+
+//update the cart quantity
+
+//Route::patch('/carts/{product}' , 'CartController@update')->name('carts.update');

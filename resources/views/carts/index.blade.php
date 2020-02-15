@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section ('content')
+    <script src="{{ asset('js/app.js') }}"></script>
     {{-- checks if the cart quanity is less than 0 or not --}}
     @if(Cart::count() > 0 )
         <h2>{{ Cart::count()}} item(s) in the cart </h2>
@@ -13,11 +14,11 @@
                 <div class="cart-item-details"> 
                     <div class="cart-table-item"><a href="/products/{{$item->id}}"> {{$item->model->title}}</a></div>
                     <div class="cart-table-description"> {{$item->model->description}} </div>
-                    <div class="cart-table-price"> ${{$item->model->price}} </div>
-                    <div class="cart-table-quantity">  
-                            <select name="quantity">
-                                @for ($i = 0; $i <= $item->model->quantity ; $i++)
-                                    <option value="{{$i}}">{{$i}}</option>    
+                    <div class="cart-table-price"> ${{$item->subtotal}} </div>
+                    <div>  
+                            <select class="quantity" data-id="{{$item->rowId}}">
+                                @for ($i = 1; $i <= $item->model->quantity ; $i++)
+                                    <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>    
                                 @endfor
                             </select>
                     </div>
@@ -78,13 +79,6 @@
                     <div class="cart-table-item"> <a href="/products/{{$item->id}}"> Title:{{$item->model->title}} </a></div>
                     <div class="cart-table-description"> Description:{{$item->model->description}} </div>
                     <div class="cart-table-price"> Price:${{$item->model->price}} </div>
-                    <div class="cart-table-quantity"> 
-                            <select name="quantity">
-                                @for ($i = 0; $i <= $item->model->quantity ; $i++)
-                                    <option value="{{$i}}">{{$i}}</option>    
-                                @endfor
-                            </select>        
-                    </div>
                 </div>  
             </div>
             <div class="cart-table-row-right">
@@ -115,10 +109,29 @@
 @endsection
 
 @section('extra-js')
+    <script src="{{ asset('js/app.js') }}"></script>
     <script>
        (function(){
-           alert('hi')
-       })(); 
+           const classname = document.querySelectorAll('.quantity')
+     
+           Array.from(classname).forEach(function(element){
+               element.addEventListener('change', function(){
+                const id = element.getAttribute('data-id')
+                axios.patch(`/carts/${id}`, {
+                    quantity: this.value
+                })
+                .then(function (response) {
+                    window.location.href = '{{ route ('carts.index') }}'
+                     //console.log(response);
+                })
+                .catch(function (error) {
+                    window.location.href = '{{ route ('carts.index') }}'
+                    //console.log(error);
+                });
+               })
+           })
+        })(); 
+    // alert('hi');
     </script>
     
 @endsection

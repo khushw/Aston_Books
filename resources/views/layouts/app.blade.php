@@ -21,16 +21,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
     <div id="app"> 
         {{-- below includes the navbar from the  inc folder --}}
         @include("inc.navbar")
 
         <main class="py-4">
            <div class="container">
+            
                 {{-- below includes the messages for succesffully listing the product or vice versa --}}
                 @include("inc.messages")
                 {{-- this displays the content from index.blade file currently as that file @extends this one --}}
