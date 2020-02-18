@@ -12,10 +12,10 @@
             <div class="cart-table-row-left">
                 <a> Image will be here, refence from the image</a>
                 <div class="cart-item-details"> 
-                    <div class="cart-table-item"><a href="/products/{{$item->id}}"> {{$item->model->title}}</a></div>
-                    <div class="cart-table-description"> {{$item->model->description}} </div>
-                    <div class="cart-table-price"> ${{$item->subtotal}} </div>
-                    <div>  
+                    <div class="cart-table-item"><a href="/products/{{$item->id}}">Book Title: {{$item->model->title}}</a></div>
+                    <div class="cart-table-description">Description: {{$item->model->description}} </div>
+                    <div class="cart-table-price">Price: ${{$item->subtotal}} </div>
+                    <div>  Quantity
                             <select class="quantity" data-id="{{$item->rowId}}">
                                 @for ($i = 1; $i <= $item->model->quantity ; $i++)
                                     <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>    
@@ -55,7 +55,10 @@
         </div>
         <span class="cart-totals-total">Total: £{{Cart::total()}}</span>                
     </div> 
-
+    <div class="cart-buttons">
+        <a href="{{route("products.index")}}" class="button"> Continue Shopping </a>
+        <a href="{{route("checkout.index")}}" class="button"> Proceed to Checkout</a>
+    </div>
      @else 
         <h3> No items in cart</h3>
         <div class="spacer"></div>

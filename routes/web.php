@@ -50,6 +50,8 @@ Route::resource('/carts' ,'CartController');
 Route::get('empty', function (){
         Cart::instance('saveForLater')->destroy();
 });
+//update the cart quantitiy
+//Route::patch('/carts/{product}' , 'CartController@update')->name('carts.update');
 
 Route::post('/carts/switchToSaveForLater/{product}' , 'CartController@switchToSaveForLater')->name('carts.switchToSaveForLater');
 
@@ -57,6 +59,6 @@ Route::post('/carts/switchToSaveForLater/{product}' , 'CartController@switchToSa
 Route::resource('/saveForLater' , 'SaveForLaterController');
 Route::post('/saveForLater/switchToCart/{product}' , 'SaveForLaterController@switchToCart')->name('saveForLater.switchToCart');
 
-//update the cart quantity
+Route::resource('/checkout' , 'CheckoutController'); 
 
-//Route::patch('/carts/{product}' , 'CartController@update')->name('carts.update');
+Route::resource('/thankyou' , 'ConfirmationController'); 
