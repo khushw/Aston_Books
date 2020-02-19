@@ -74,8 +74,12 @@ class ProductController extends Controller
         $product->pages= $request->input('pages');
         $product->quantity = $request->input('quantity');
         $product->published_date = $request->input('published_date');
-        $product->category_id =$request->input('categoryselect');
+        // /$product->category_id =$request->input('categoryselect');
         $product->save();
+
+        $product->categories()->sync($request->input('categories1'));
+        
+
 
        //after a successful listing it will display the below message
        //then use the success in the inc (messages file) to display some interactive features    
@@ -96,7 +100,6 @@ class ProductController extends Controller
         
         $product  = Product::find($id);
         $conditions=DB::table('conditions')->where('id',$product->condition_id)->value('name');
-        $categories=DB::table('categories')->where('id',$product->category_id)->value('name');
         $username = DB::table('users')->where('id',$product->user_id)->value('name');
         $kilosymbol = "kg";
         $currency = "£";
@@ -104,7 +107,6 @@ class ProductController extends Controller
                                                 'conditions'=>$conditions,
                                                 'currency'  => $currency,
                                                 'kilosymbol'=> $kilosymbol,
-                                                'categories' => $categories,
                                                 'username' => $username
                                             ]);
     }
@@ -125,20 +127,21 @@ class ProductController extends Controller
         
         $conditions = DB::table('conditions')->select('id','name')->get();
         $categories = DB::table('categories')->select('id','name')->get();
+        
 
         $conditionname = DB::table('conditions')->where('id',$product->condition_id)->value('name');
         $conditionid = DB::table('conditions')->where('id',$product->condition_id)->value('id');
 
-        $categoriesname = DB::table('categories')->where('id',$product->category_id)->value('name');
-        $categoriesid = DB::table('categories')->where('id', $product->category_id)->value('id');
+       // $categoriesname = DB::table('categories')->where('id',$product->category_id)->value('name');
+        //  $categoriesid = DB::table('categories')->where('id', $product->category_id)->value('id');
 
         return view ('products.edit')->with([   'conditions' => $conditions,
                                                 'product'=>$product,
                                                 'conditionid' =>$conditionid,
                                                 'conditionname' => $conditionname,
-                                                'categories' => $categories,
-                                                'categoriesname' => $categoriesname,
-                                                'categoriesid'   => $categoriesid
+                                                'categories' => $categories
+                                                //'categoriesname' => $categoriesname,
+                                               // 'categoriesid'   => $categoriesid
                                             ]);
     }
 
@@ -170,8 +173,10 @@ class ProductController extends Controller
         $product->pages= $request->input('pages');
         $product->quantity = $request->input('quantity');
         $product->published_date = $request->input('published_date');
-        $product->category_id =$request->input('categoryselect');
         $product->save();
+
+        //use synce as its an array, we update the categires fo the prodcts in the relationship table
+        $product->categories()->sync($request->input('categories1'));
 
        //after a successful listing it will display the below message    
         return redirect("/products/".$product->id)->with('success', 'Your Listing is now updated!');
@@ -191,7 +196,14 @@ class ProductController extends Controller
         }
 
         $product = Product::find($id);
+       
+       //it will delete the product and detach any catgories attached with the product
+        $product->categories()->detach();
+       
         $product->delete();
+
+        
+        
 
         return redirect('/products')->with('success', 'Your Listing has been removed');
     }

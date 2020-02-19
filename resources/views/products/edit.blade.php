@@ -3,22 +3,6 @@
 
 @section ('content')
 <h1>Edit Product</h1>
-    {{-- {!! Form::open(['action' => ['ProductController@update',$product->id],'method' => 'POST']) !!}
-        <div class="form-group">
-            {{Form::label('title','Title')}}
-            {{Form::text('title',$product->title,['class' => 'form-control','placeholder'=>'Title'] )}}
-            
-            {{Form::label('price','Price')}}
-            {{Form::number('price',$product->price,['class' => 'form-control','placeholder'=>'Price'] )}}
-
-            {{-- {{Form::label('condition','Condition')}}
-            {{Form::select('condition', $condition, null, ['placeholder'=>'Please select from list'] )}}
-             --}}
-            {{-- {{Form::hidden('_method','PUT')}}
-            {{Form::submit('Submit',['class' => 'btn btn-primary'])}}
-    </div>
-    {!! Form::close() !!} --}}
-
     <div id="wrapper">
         <div id="editproduct" class="container">
             <h3>Update Books</h3>
@@ -131,17 +115,33 @@
                 </div>   
                 
                 {{-- select different categories of the book --}}
-                <label class="label">Select Category</label>
+                {{-- <label class="label">Select Category</label>
                 <div class="form-group">
                     {{-- select allows me to create a dropdown --}}
                     {{-- option allows --}}
-                    <select name="categoryselect" id="categories" class="form-control input-lg dynamic" data-dependent="labSubCat">
+                    {{-- <select name="categoryselect" id="categories" class="form-control input-lg dynamic" data-dependent="labSubCat">
                     <option value="{{$categoriesid}}">{{$categoriesname}}</option>
                         @foreach($categories as $ca)
                             <option value="{{$ca->id}}">{{$ca->name}}</option>
                         @endforeach
                     </select>
-                </div>   
+                </div>  --}} 
+                
+                
+                
+                <label class="label">Select Category</label>
+                    <div class="form-group">    
+                            @foreach ($categories as $cats)
+                                <div class="form-check">
+                                    <input type="checkbox" name="categories1[]" value="{{ $cats->id }}"
+                                    {{-- if current user role has one of the roles in the roles table then the box should be checked --}}
+                                    @if($product->categories()->pluck('category_id')->contains($cats->id)) checked @endif>
+                                    <label> {{$cats->name}} </label>
+                                </div>                            
+                            @endforeach
+                    </div>  
+                
+
 
                 <div class="field is-grouped">
                     <div class="control">

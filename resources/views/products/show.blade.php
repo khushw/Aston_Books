@@ -18,8 +18,8 @@
 <small>Book Condition: {{$conditions}}</small>
 <hr>
 <hr>
-<small>Book Category: {{$categories}}</small>
-<hr>
+<small>Book Category: {{ implode(', ', $product->categories()->get()->pluck('name')->toArray()) }}  </small>
+<hr>    
 <hr>
 <small>Book Description: {{$product->description}}</small>
 <hr>

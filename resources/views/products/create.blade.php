@@ -24,7 +24,7 @@
     <div id="wrapper">
         <div id="createproduct" class="container">
             <h3>Upload Books</h3>
-            <form method="POST" action="/products">
+            <form method="POST" action="/products" id="create_products_form">
                 @csrf
                 
                 {{-- name of the book --}}
@@ -128,20 +128,31 @@
                         @endforeach
                     </select>
                 </div>   
-                
 
-                {{-- select different categories of the book --}}
+                {{-- select different categories of the book
                 <label class="label">Select Category</label>
                 <div class="form-group">
                     {{-- select allows me to create a dropdown --}}
                     {{-- option allows --}}
-                    <select name="categoryselect" id="categories" class="form-control input-lg dynamic" data-dependent="labSubCat">
+                     {{-- <select name="categoryselect" id="categories" class="form-control input-lg dynamic" data-dependent="labSubCat">
                     <option value="{{$categories}}">Select Category</option>
                         @foreach($categories as $ca)
                             <option value="{{$ca->id}}">{{$ca->name}}</option>
                         @endforeach
                     </select>
-                </div>   
+                </div>  --}}
+                
+                <label class="label">Select Category</label>
+                <div class="form-group">
+                    {{-- select allows me to create a dropdown --}}
+                    {{-- option allows to display individual values from the dropdown --}}
+                     <select name="categories1[]" id="categories" class="form-control input-lg dynamic" data-dependent="labSubCat" multiple>
+                    <option value="{{$categories}}" disabled selected>Select Category</option>
+                        @foreach($categories as $ca)
+                            <option value="{{$ca->id}}">{{$ca->name}}</option>
+                        @endforeach
+                    </select>
+                </div> 
 
                 <div class="field is-grouped">
                     <div class="control">

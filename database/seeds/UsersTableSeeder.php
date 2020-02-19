@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
 
         //find the roles 
         $adminRole = Role::where('name' , 'admin')->first();
-        $userRole = Role::where('name' , 'user')->first();
+        $userRole = Role::where('name'  , 'user')->first();
 
         //create the users 
 

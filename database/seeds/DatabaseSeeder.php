@@ -14,6 +14,12 @@ class DatabaseSeeder extends Seeder
         // calling the roles first as the user depends on the role
         $this->call(RolesTableSeeder::class);
          $this->call(UsersTableSeeder::class);
+         $this->call(CategoriesTableSeeder::class);
+         $this->call(ConditionsTableSeeder::class);
+         $this->call(ProductsTableSeeder::class);
+         
+         
+         
         //when you run php artisan dbseed anything in the above run method will be called
      
     }
