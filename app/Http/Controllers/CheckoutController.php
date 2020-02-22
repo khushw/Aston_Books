@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cart;
 use Stripe;
+use App\Order;
+use App\OrderProduct;
 use Cartalyst\Stripe\Exception\CardErrorException;
 
 class CheckoutController extends Controller
@@ -52,6 +54,7 @@ class CheckoutController extends Controller
         $contents = Cart::content()->map(function ($item){
             return $item->model->title.' , '.$item->qty;
         })->values()->toJson();
+
         //this just dumps everything in the request 
        // dd($request->all());
        
@@ -70,12 +73,37 @@ class CheckoutController extends Controller
                 'quantity' => Cart::instance('default')->count(),
             ],
            ]);
-           
+           //Insert the cart items into the orders table
+            $order = Order::create([
+             'buyer_id' => auth()->user() ? auth()->user()->id :null,
+             'shipping_email' => $request->email,
+             'shipping_name' =>   $request->name,
+             'shipping_address' => $request->address,
+             'shipping_city'  => $request->city,
+            'shipping_postcode' => $request->postcode,
+            'shipping_phone' => $request->phone,
+            'billing_name_on_card' => $request->name_on_card,
+             'billing_subtotal' => Cart::subtotal(), 
+             'billing_tax'=> Cart::tax(),
+             'billing_total'=> Cart::total(),
+             'error' => null,
+             ]);
+
+           //Insert into the link table, order_product
+           foreach (Cart::content() as $item) {
+               # code...
+               OrderProduct::create([
+                   'order_id' => $order->id,
+                   'product_id' => $item->model->id,
+                   'seller_id' => $item->model->user_id,
+                   'quantity' => $item->qty,
+               ]);
+           }
+
+
            //if its successful it will destroy the contents of the cart
            Cart::instance('default')->destroy();
-           
            //when successful user will be redirected to the thank you page
-
            return redirect()->route('thankyou.index')->with('success' , 'Thank You for Shopping with Us!');
        }
        //if we do get bad cards coming through we will use the below library to throw an errro for us 

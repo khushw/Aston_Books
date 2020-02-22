@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Condition;
+use App\Category;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Gate;
@@ -18,10 +19,41 @@ class ProductController extends Controller
     //shows all the listed books for sale.
     public function index()
     {
-        //if want to restrict then add ->take(whatever number)->get();
-        //paginate creates a new page for every x amount of posts listed. 
-        $products = Product::orderBy('created_at','desc')->paginate(5);
-        return view('products.index')->with('products',$products);
+        $pagination = 3;
+        $categories = Category::all();
+        // check the query string for the category 
+        if(request()->category) {
+            // if there is a query string, we will find the category that equals the query and get all the products that match
+            $products = Product::with('categories')->whereHas('categories', function($query){
+                $query->where('name' , request()->category);
+            });
+            //find the cateogry that the user has selected, use first as its collection of cateogires
+            //used the optional helper in case the category doesnt exist
+            $categoryName = optional($categories->where('name' , request()->category)->first())->name;
+        } else {   //if no query string do the below code
+          
+            //display the items that the user sees on the home page 
+            $products = Product::where('featured' , true);
+            //$products = Product::take(10000); if want to display all the books for sale
+            // to retrieve all the categories
+            $categoryName = 'Featured Books Avaliable!';
+        }
+
+        //for the price low to high or vice versa we check the sort like we defined in the index view
+        // added pagination here as it only works with query builder and there is no query builder here
+        if(request()->sort == "low_high"){
+            $products = $products->orderBy('price')->paginate(3);
+        } elseif (request()->sort == "high_low") {
+            $products = $products->orderBy('price', 'desc')->paginate(3);
+        } else {
+            $products = $products->paginate(3);
+        }
+
+        return view('products.index')->with([
+                                            'products' => $products,
+                                            'categories' => $categories,
+                                            'categoryName' => $categoryName
+                                            ]);
     }
 
     /**

@@ -29,7 +29,8 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('condition_id')->nullabe(); //to store the condition of the book
            // $table->unsignedInteger('category_id')->nullabe(); //to store the category of the book           
-            $table->timestamps();
+           $table->boolean('featured')->default(false);
+           $table->timestamps();
         });
     }
 

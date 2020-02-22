@@ -9,7 +9,7 @@
                 <div>
                     <form action="{{route('checkout.store')}}" method="POST" id="payment-form">
                          {{ csrf_field() }}
-                        <h2> Billing Details </h2>
+                        <h2> Shipping Details </h2>
                         
                             <div class="form-group">
                             <label for="email"> Email Address </label>
@@ -50,10 +50,10 @@
                             <input type="text"  class="form-control" id="name_on_card" name="name_on_card" value="{{ old ('name_on_card') }}">
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="address"> Address </label>
                             <input type="text"  class="form-control" id="address" name="address" value="{{ old ('address') }}">
-                        </div>
+                        </div> --}}
 
                         {{-- STRIPE payment method input fields for the user card details --}}
                         <div class="form-group">

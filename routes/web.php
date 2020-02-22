@@ -34,6 +34,7 @@ Route::resource('/categories', 'CategoriesController');
 Route::resource('/conditions' ,'ConditionController');
 
 
+
 //namespace so we dont need to put admin in front of our controllers
 //prefix adds admin to the start of the url 
 //admin . adds this to the start of the route
@@ -62,3 +63,5 @@ Route::post('/saveForLater/switchToCart/{product}' , 'SaveForLaterController@swi
 Route::resource('/checkout' , 'CheckoutController'); 
 
 Route::resource('/thankyou' , 'ConfirmationController'); 
+
+Route::resource('/orders', 'OrdersController' , ['except' => ['create','store','destroy','edit','update']]);;

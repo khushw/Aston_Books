@@ -8,9 +8,6 @@
 
 {{-- product details/all the fields --}}
 <h1>{{$product->title}}</h1>
-<div>
-    {{$product->description}}
-<div>
 <hr>
 <small>Book Price: {{$currency}} {{$product->price}}</small>
 <hr>

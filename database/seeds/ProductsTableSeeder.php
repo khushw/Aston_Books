@@ -15,7 +15,7 @@ class ProductsTableSeeder extends Seeder
     {
         //
         Product::truncate();
-        $category1 = Category::select('id')->where('name' , 'Science')->value('id');
+       // $category1 = Category::select('id')->where('name' , 'Science')->value('id');
         $condition1 = Condition::select('id')->where('name' , 'Used')->value('id');
 
         for ($i = 1; $i <= 6; $i++){
