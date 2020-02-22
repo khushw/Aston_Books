@@ -64,4 +64,7 @@ Route::resource('/checkout' , 'CheckoutController');
 
 Route::resource('/thankyou' , 'ConfirmationController'); 
 
-Route::resource('/orders', 'OrdersController' , ['except' => ['create','store','destroy','edit','update']]);;
+Route::resource('/orders', 'OrdersController' , ['except' => ['create','store','destroy','edit','update']]);
+
+Route::resource('/listings' , 'ListingsController'); 
+Route::get('/listings/shipped/{id}' , 'ListingsController@shipped')->name('listings.shipped'); 

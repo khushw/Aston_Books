@@ -1,20 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Order;
 use App\OrderProduct;
-use App\Product;
+use App\Order;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
-class OrdersController extends Controller
+class ListingsController extends Controller
 {
-
-    //calls the auth middlewear function to check whetehr it is a logged in user, if not it wil redirect to login page
-    public function __construct(){
+     //calls the auth middlewear function to check whetehr it is a logged in user, if not it wil redirect to login page
+     public function __construct(){
         $this->middleware('auth');
     }
-        
     
     /**
      * Display a listing of the resource.
@@ -23,11 +21,25 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //find the id of the user currently logged in
-        $id = Auth::id();
-        //find all the orders
-        $orders = Order::all();
-        return view('orders.index')->with(['orders' => $orders , 'id' => $id]);
+        //
+        // $id = Auth::id();
+        $listings = OrderProduct::all();
+        // $orders = Order::all();
+       // dd($orders->all());
+
+       return view('listings.index')->with([
+                                            "listings" => $listings
+                                            // "orders"   => $orders
+                                            // "id"       => $id  
+                                            ]);
+        
+    }
+
+    public function shipped($id){
+        $product = OrderProduct::find($id);
+        $product->shipped = true;
+        $product->save();
+        return redirect()->back()->with('success', 'This Order has been shipped!');
     }
 
     /**
@@ -59,15 +71,9 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //find the order 
-        $order = Order::find($id);
-        // find the associated products with the order id
-        $products = $order->products;
-        $shipped = OrderProduct::all();
-       
-        return view('orders.show')->with(["order" => $order, "products" => $products,"shipped"=>$shipped]);
+        //
     }
-  
+
     /**
      * Show the form for editing the specified resource.
      *

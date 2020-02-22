@@ -72,6 +72,7 @@
                                 <a class="dropdown-item" href="{{ route('conditions.index') }}" > Manage Conditions </a>
                                 @endcan
                                 <a class="dropdown-item" href="{{ route('orders.index') }}" > My Orders </a>
+                                <a class="dropdown-item" href="{{ route('listings.index') }}" > Sold Items </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>

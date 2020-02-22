@@ -26,7 +26,10 @@ class CreateOrderProductTable extends Migration
             //$table->foreign('seller_id')->references('user_id')->on('products')->onUpdate('cascade')->onDelete('set null');
             
             $table->integer('quantity')->unsigned();
-
+            
+            $table->boolean('shipped')->default(false);
+            
+            
             $table->timestamps();
         });
     }

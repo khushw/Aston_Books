@@ -17,6 +17,7 @@
                             <th scope="col">Unit Price</th>
                             <th scope="col">Ordered Quantity</th>
                             <th scope="col">Seller Name</th>
+                            <th scope="col">Shipped</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -29,6 +30,14 @@
                                     <td>{{$product->price}}</td>
                                     <td>{{$product->pivot->quantity}}</td>
                                     <td>{{ DB::table('users')->where('id' , $product->user_id )->value('name')}}</td>
+                                    {{-- get the value of shipped if the product id equals the product id on the order products table --}}
+                                    <td>
+                                        @if (DB::table('order_product')->where('product_id' , $product->id )->value('shipped') == 0 )
+                                            <p style="background-color:red"> Not yet shipped :( </p>
+                                        @elseif (DB::table('order_product')->where('product_id' , $product->id )->value('shipped')  == 1 )
+                                            <p style="background-color:green">  Item(s) is on the way! </p>
+                                        @endif
+                                    </td>
                                 </tr>  
                             @endforeach
                         </tbody>
