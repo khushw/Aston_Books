@@ -156,12 +156,24 @@
 
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="button is-link" type="submit">Submit</button>
+                        <button class="button is-link" type="submit" id="disable-button">Submit</button>
                 </div>
 
                 </div>                                
             </form>
         </div>
     </div>
+@endsection
+
+{{-- to disable the submit button once if the user click on it  --}}
+@section('extra-js')
+        <script type="text/javascript">
+                $(document).ready(function () {
+                $("#create_products_form").submit(function (e) {
+                    $("#disable-button").attr("disabled", true);
+                    return true;
+                });
+            });
+        </script>
 @endsection
 @endcan

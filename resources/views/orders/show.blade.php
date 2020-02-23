@@ -32,9 +32,9 @@
                                     <td>{{ DB::table('users')->where('id' , $product->user_id )->value('name')}}</td>
                                     {{-- get the value of shipped if the product id equals the product id on the order products table --}}
                                     <td>
-                                        @if (DB::table('order_product')->where('product_id' , $product->id )->value('shipped') == 0 )
+                                        @if (DB::table('order_product')->where(['product_id' => $product->id , 'order_id' => $order->id])->value('shipped') == 0 )
                                             <p style="background-color:red"> Not yet shipped :( </p>
-                                        @elseif (DB::table('order_product')->where('product_id' , $product->id )->value('shipped')  == 1 )
+                                        @elseif (DB::table('order_product')->where(['product_id' => $product->id, 'order_id' => $order->id])->value('shipped')  == 1 )
                                             <p style="background-color:green">  Item(s) is on the way! </p>
                                         @endif
                                     </td>

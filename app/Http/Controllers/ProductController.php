@@ -33,8 +33,9 @@ class ProductController extends Controller
         } else {   //if no query string do the below code
           
             //display the items that the user sees on the home page 
-            $products = Product::where('featured' , true);
-            //$products = Product::take(10000); if want to display all the books for sale
+            //$products = Product::where('featured' , true);
+            // if want to display all the books for sale
+            $products = Product::take(10000); 
             // to retrieve all the categories
             $categoryName = 'Featured Books Avaliable!';
         }
@@ -107,9 +108,10 @@ class ProductController extends Controller
         $product->quantity = $request->input('quantity');
         $product->published_date = $request->input('published_date');
         // /$product->category_id =$request->input('categoryselect');
+        $product->categories()->sync($request->input('categories1'));
         $product->save();
 
-        $product->categories()->sync($request->input('categories1'));
+       
         
 
 
