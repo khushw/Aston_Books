@@ -36,6 +36,10 @@
 <small>Book Quantity: {{$product->quantity}}</small>
 <hr>
 <hr>
+{{-- not double quotes as we are passing in html and bootstrap --}}
+<h3> {!! $stockLevel !!}</h3>
+<hr>
+<hr>
 <small>Published Date: {{$product->published_date}}</small>
 <hr>
 <hr>
@@ -43,14 +47,17 @@
 <hr>
 
 @can('list-edit-products')
+{{-- only add products to cart that have quantity greater than 0 --}}
+@if($product->quantity > 0)
 {{-- button to navigate user to the edit page  --}}
-<form action="{{route('carts.store')}}" method="POST">
-     {{ csrf_field() }}
-    <input type="hidden" name="id" value ="{{ $product->id}}">
-    <input type="hidden" name="title" value ="{{ $product->title}}">
-    <input type="hidden" name="price" value ="{{ $product->price}}">
-     <button type="submit" class="button button-plain"> Add to Cart </button>
-</form>
+     <form action="{{route('carts.store')}}" method="POST">
+          {{ csrf_field() }}
+          <input type="hidden" name="id" value ="{{ $product->id}}">
+          <input type="hidden" name="title" value ="{{ $product->title}}">
+          <input type="hidden" name="price" value ="{{ $product->price}}">
+               <button type="submit" class="button button-plain"> Add to Cart </button>
+     </form>
+@endif
 {{-- <a href='/products/{{ $product->id}}/edit' class='button'> Add to Cart </a> --}}
 
 

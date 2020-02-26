@@ -7,6 +7,7 @@ use Cart;
 use Stripe;
 use App\Order;
 use App\OrderProduct;
+use App\Product;
 use Cartalyst\Stripe\Exception\CardErrorException;
 
 class CheckoutController extends Controller
@@ -40,6 +41,11 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        // when a product is out of stock it will throw an error instead of going -1
+        if($this->productsAreNoLongerAvaliable()){
+            return back()->withErrors('Sorry! One of the items in your cart is no longer avaliable');
+        }
+        
         //doing some server side validation
         $this->validate($request,[
             'name' => 'required',
@@ -54,12 +60,8 @@ class CheckoutController extends Controller
         $contents = Cart::content()->map(function ($item){
             return $item->model->title.' , '.$item->qty;
         })->values()->toJson();
-
-        //this just dumps everything in the request 
-       // dd($request->all());
        
        //to charge the credit card , we can use the library we installed (cartalyst/stripe-laravel) and we have to use a try catch block for it
-
        try{
            $charge = Stripe::charges()->create([
             'amount' => Cart::total(),
@@ -100,6 +102,7 @@ class CheckoutController extends Controller
                ]);
            }
 
+           $this->decreaseQuantites();
 
            //if its successful it will destroy the contents of the cart
            Cart::instance('default')->destroy();
@@ -156,5 +159,28 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // decrease the quantitie that the user has ordered agaisnt the quantity in left in the stock
+    protected function decreaseQuantites(){
+        // loop through the contents of the cart
+        foreach (Cart::content() as $item){
+            // find the item id that is in the cart
+            $product = Product::find($item->model->id);
+
+            $product->update(['quantity' => $product->quantity - $item->qty]);
+
+        }
+
+    }
+
+    protected function productsAreNoLongerAvaliable(){
+        foreach (Cart::content() as $item){
+            $product = Product::find($item->model->id);
+            if ($product->quantity < $item->qty){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -87,19 +87,25 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $validator = Validator::make($request->all(), [
             'quantity' => 'required|numeric'
         ]);
-
+        // is a user tries to enter a non-numeric value, throw an error
         if($validator->fails()) {
-            session()->flash('error', collect(['Quantity must be numeric and is required']));
-            return response()->json(['success' => false]);
-        }    
+            session()->flash('errors', collect(['Quantity must be numeric']));
+            return response()->json(['success' => false], 400);
+        } 
+        // if a user tries to edit the quantity it will flash an error message
+        if($request->quantity > $request->productQuantity) {
+            session()->flash('errors', collect(['We currently do not have enough books in stock for']));
+            return response()->json(['success' => false], 400);
+        } 
 
         Cart::update($id, $request->quantity);
 
         session()->flash('success' , 'Quantity was successfully updated');
-        return response()->json(['success' => true], 400);
+        return response()->json(['success' => true]);
     }
 
     /**

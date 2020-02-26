@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('author')->nullable();
             $table->string('book_publisher')->nullable();
             $table->date('published_date')->nullable();
-            $table->double('quantity')->nullable();
+            $table->unsignedInteger('quantity')->nullable();
             $table->double('weight')->nullable();
             $table->double('pages')->nullable(); 
             $table->unsignedInteger('user_id')->nullable();

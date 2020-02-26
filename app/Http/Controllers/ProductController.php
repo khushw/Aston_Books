@@ -19,12 +19,14 @@ class ProductController extends Controller
     //shows all the listed books for sale.
     public function index()
     {
-        $pagination = 3;
+        // $pagination = 3;
+
         $categories = Category::all();
         // check the query string for the category 
         if(request()->category) {
             // if there is a query string, we will find the category that equals the query and get all the products that match
-            $products = Product::with('categories')->whereHas('categories', function($query){
+            // show products which have quantity greater than or equal to 1
+            $products = Product::with('categories')->where('quantity', '>=' , '1')->whereHas('categories', function($query){
                 $query->where('name' , request()->category);
             });
             //find the cateogry that the user has selected, use first as its collection of cateogires
@@ -32,22 +34,21 @@ class ProductController extends Controller
             $categoryName = optional($categories->where('name' , request()->category)->first())->name;
         } else {   //if no query string do the below code
           
-            //display the items that the user sees on the home page 
             //$products = Product::where('featured' , true);
             // if want to display all the books for sale
-            $products = Product::take(10000); 
+            $products = Product::take(10000)->where('quantity', '>=' , '1'); 
             // to retrieve all the categories
-            $categoryName = 'Featured Books Avaliable!';
+            $categoryName = 'Books Avaliable!';
         }
 
         //for the price low to high or vice versa we check the sort like we defined in the index view
         // added pagination here as it only works with query builder and there is no query builder here
         if(request()->sort == "low_high"){
-            $products = $products->orderBy('price')->paginate(3);
+            $products = $products->orderBy('price')->paginate(5);
         } elseif (request()->sort == "high_low") {
-            $products = $products->orderBy('price', 'desc')->paginate(3);
+            $products = $products->orderBy('price', 'desc')->paginate(5);
         } else {
-            $products = $products->paginate(3);
+            $products = $products->paginate(5);
         }
 
         return view('products.index')->with([
@@ -137,10 +138,19 @@ class ProductController extends Controller
         $username = DB::table('users')->where('id',$product->user_id)->value('name');
         $kilosymbol = "kg";
         $currency = "£";
+        //indicate whether an item is stock
+        // $stockLevel = "";
+        if ($product->quantity >= 1){
+            $stockLevel = '<span class="badge badge-pill badge-success">' .$product->quantity. ' In Stock</span>';    
+        } elseif ($product->quantity <= 0){
+            $stockLevel = '<span class="badge badge-pill badge-secondary">Not Avaliable</span>';    
+        }
+        
         return view ('products.show')->with([   'product'=>$product,
                                                 'conditions'=>$conditions,
                                                 'currency'  => $currency,
                                                 'kilosymbol'=> $kilosymbol,
+                                                 'stockLevel'=> $stockLevel,
                                                 'username' => $username
                                             ]);
     }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section ('content')
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     {{-- checks if the cart quanity is less than 0 or not --}}
     @if(Cart::count() > 0 )
         <h2>{{ Cart::count()}} item(s) in the cart </h2>
@@ -16,7 +16,7 @@
                     <div class="cart-table-description">Description: {{$item->model->description}} </div>
                     <div class="cart-table-price">Price: ${{$item->subtotal}} </div>
                     <div>  Quantity
-                            <select class="quantity" data-id="{{$item->rowId}}">
+                            <select class="quantity" data-id="{{$item->rowId}}" data-productQuantity="{{$item->model->quantity}}">
                                 @for ($i = 1; $i <= $item->model->quantity ; $i++)
                                     <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>    
                                 @endfor
@@ -112,7 +112,7 @@
 @endsection
 
 @section('extra-js')
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     <script>
        (function(){
            const classname = document.querySelectorAll('.quantity')
@@ -120,8 +120,11 @@
            Array.from(classname).forEach(function(element){
                element.addEventListener('change', function(){
                 const id = element.getAttribute('data-id')
+                const productQuantity = element.getAttribute('data-productQuantity')
+               
                 axios.patch(`/carts/${id}`, {
-                    quantity: this.value
+                    quantity: this.value,
+                    productQuantity: productQuantity
                 })
                 .then(function (response) {
                     window.location.href = '{{ route ('carts.index') }}'

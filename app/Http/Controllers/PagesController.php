@@ -11,8 +11,8 @@ class PagesController extends Controller
     //method to disp
     public function index(){
         $title = 'Welcome to Aston Books';           
+       //on the home page display all the products where featured is 3 and show only 3 in random order
         $products = Product::where('featured' , true)->take(3)->inRandomOrder()->get(); 
-        // /dd($products->all());
         // return view('index', compact('title'));  //2 ways of doing this below and this one(passing single value)
         return view('index')->with  ([
                                         'title' => $title,
