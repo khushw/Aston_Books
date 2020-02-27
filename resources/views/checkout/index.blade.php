@@ -13,12 +13,12 @@
                         
                             <div class="form-group">
                             <label for="email"> Email Address </label>
-                            <input type="email"  class="form-control" id="email" name="email" value="{{ old ('email') }}">
+                            <input type="email"  class="form-control" id="email" name="email" value="{{$email}}">
                         </div>
 
                         <div class="form-group">
                             <label for="name"> Name </label>
-                            <input type="text"  class="form-control" id="name" name="name" value="{{ old ('name') }}">
+                            <input type="text"  class="form-control" id="name" name="name" value="{{$name}}">
                         </div>
 
                         <div class="form-group">

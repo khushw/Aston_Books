@@ -109,10 +109,9 @@ class ProductController extends Controller
         $product->quantity = $request->input('quantity');
         $product->published_date = $request->input('published_date');
         // /$product->category_id =$request->input('categoryselect');
-        $product->categories()->sync($request->input('categories1'));
         $product->save();
 
-       
+        $product->categories()->sync($request->input('categories1'));
         
 
 
@@ -250,5 +249,13 @@ class ProductController extends Controller
         
 
         return redirect('/products')->with('success', 'Your Listing has been removed');
+    }
+
+    public function forsale(){
+
+        $products = Product::all();
+
+        return view('forsale.index')->with(['products' => $products]);
+
     }
 }

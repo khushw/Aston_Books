@@ -32,9 +32,9 @@
 <hr>
 <small>Book Pages: {{$product->pages}}</small>
 <hr>
-<hr>
+{{-- <hr>
 <small>Book Quantity: {{$product->quantity}}</small>
-<hr>
+<hr> --}}
 <hr>
 {{-- not double quotes as we are passing in html and bootstrap --}}
 <h3> {!! $stockLevel !!}</h3>
@@ -49,25 +49,23 @@
 @can('list-edit-products')
 {{-- only add products to cart that have quantity greater than 0 --}}
 @if($product->quantity > 0)
-{{-- button to navigate user to the edit page  --}}
+{{-- button to add the product to the shopping cart with the bellow information  --}}
      <form action="{{route('carts.store')}}" method="POST">
           {{ csrf_field() }}
           <input type="hidden" name="id" value ="{{ $product->id}}">
           <input type="hidden" name="title" value ="{{ $product->title}}">
           <input type="hidden" name="price" value ="{{ $product->price}}">
-               <button type="submit" class="button button-plain"> Add to Cart </button>
+          <button type="submit" class="button button-plain"> Add to Cart </button>
      </form>
 @endif
-{{-- <a href='/products/{{ $product->id}}/edit' class='button'> Add to Cart </a> --}}
 
-
-<a href='/products/{{ $product->id}}/edit' class='btn btn-default'> Edit Listing </a>
+{{-- <a href='/products/{{ $product->id}}/edit' class='btn btn-default'> Edit Listing </a>
 
 {{-- calling the destroy method in contrller and then remove the listing from the application --}}
-{!!Form::open(['action'=> ['ProductController@destroy', $product->id], 'method' => 'POST' , 'class'=> 'pull-right'])!!}
+{{-- {!!Form::open(['action'=> ['ProductController@destroy', $product->id], 'method' => 'POST' , 'class'=> 'pull-right'])!!} --}}
  {{-- //includes the hidden spoofing method and the submit button --}}
-    {{Form::hidden('_method','DELETE')}}
+    {{-- {{Form::hidden('_method','DELETE')}}
     {{Form::submit('Delete',['class' => 'btn btn-danger'])}}
-{!!Form::close() !!}
+{!!Form::close() !!}  --}}
 @endcan
 @endsection

@@ -65,6 +65,10 @@ Route::resource('/checkout' , 'CheckoutController');
 Route::resource('/thankyou' , 'ConfirmationController'); 
 
 Route::resource('/orders', 'OrdersController' , ['except' => ['create','store','destroy','edit','update']]);
-
+//to show all the products the user has sold 
 Route::resource('/listings' , 'ListingsController'); 
+// to notify the buyer that their product has been shipped from the seller
 Route::get('/listings/shipped/{id}' , 'ListingsController@shipped')->name('listings.shipped'); 
+
+// to show all the items the user has put on sale
+Route::get('/forsale', 'ProductController@forsale')->name('forsale.index');

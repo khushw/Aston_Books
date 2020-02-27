@@ -8,6 +8,8 @@ use Stripe;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
+use Illuminate\Support\Facades\Auth;
+use DB;
 use Cartalyst\Stripe\Exception\CardErrorException;
 
 class CheckoutController extends Controller
@@ -19,8 +21,11 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        //
-        return view('checkout.index');
+        //display the logged in users email and name in the checkout form
+        $email = DB::table('users')->where('id' , Auth::id())->value('email');
+        $name = DB::table('users')->where('id' , Auth::id())->value('name');
+        
+        return view('checkout.index')->with(['email' => $email ,'name' => $name]);
     }
 
     /**
@@ -136,6 +141,8 @@ class CheckoutController extends Controller
     public function edit($id)
     {
         //
+
+        
     }
 
     /**
