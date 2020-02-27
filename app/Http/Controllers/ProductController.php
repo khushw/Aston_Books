@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Condition;
 use App\Category;
+use App\Review;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Gate;
@@ -138,18 +139,21 @@ class ProductController extends Controller
         $kilosymbol = "kg";
         $currency = "£";
         //indicate whether an item is stock
-        // $stockLevel = "";
         if ($product->quantity >= 1){
             $stockLevel = '<span class="badge badge-pill badge-success">' .$product->quantity. ' In Stock</span>';    
         } elseif ($product->quantity <= 0){
             $stockLevel = '<span class="badge badge-pill badge-secondary">Not Avaliable</span>';    
         }
+
+        // get the reviews
+        $reviews = Review::where('product_id' , $id)->get();
         
         return view ('products.show')->with([   'product'=>$product,
                                                 'conditions'=>$conditions,
                                                 'currency'  => $currency,
                                                 'kilosymbol'=> $kilosymbol,
-                                                 'stockLevel'=> $stockLevel,
+                                                'stockLevel'=> $stockLevel,
+                                                'reviews' => $reviews,
                                                 'username' => $username
                                             ]);
     }

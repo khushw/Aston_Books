@@ -72,3 +72,11 @@ Route::get('/listings/shipped/{id}' , 'ListingsController@shipped')->name('listi
 
 // to show all the items the user has put on sale
 Route::get('/forsale', 'ProductController@forsale')->name('forsale.index');
+
+
+#Replies
+Route::post('/products/{product}/reviews','ReviewController@store')->name('review.store');
+Route::delete('/reviews/{review}','ReviewController@destroy');
+Route::get('/reviews/{review}','ReviewController@edit')->name('review.edit');
+Route::patch('/reviews/{review}','ReviewController@update')->name('review.update');
+ 
