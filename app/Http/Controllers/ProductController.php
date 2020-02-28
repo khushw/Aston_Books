@@ -48,6 +48,10 @@ class ProductController extends Controller
             $products = $products->orderBy('price')->paginate(5);
         } elseif (request()->sort == "high_low") {
             $products = $products->orderBy('price', 'desc')->paginate(5);
+        } elseif (request()->sort == "date_listed_earliest") {
+            $products = $products->orderBy('created_at')->paginate(5);
+        } elseif (request()->sort == "date_listed_longest") {
+            $products = $products->orderBy('created_at', 'desc')->paginate(5);
         } else {
             $products = $products->paginate(5);
         }

@@ -23,10 +23,13 @@
         </div>
         {{-- on every cateogry the user clicks on, they will have option to filter by price low to high and vice versa --}}
         <div>
-            <strong>Price </strong>
+            <strong>Filters</strong>
             {{-- as we are not in the a loop we have to get the cateogry by the request() --}}
             <a href="{{ route("products.index", ["category" => request()->category , "sort" => "low_high"]) }}"> Low to High</a>
             <a href="{{ route("products.index", ["category" => request()->category , "sort" => "high_low"]) }}"> High to Low</a>
+            <a href="{{ route("products.index", ["category" => request()->category , "sort" => "date_listed_earliest"]) }}"> Published Earliest</a>
+            <a href="{{ route("products.index", ["category" => request()->category , "sort" => "date_listed_longest"]) }}"> Published Longest</a>
+            
         </div>
     </div>
 </div>
