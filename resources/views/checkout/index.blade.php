@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section ('content')
-<script src="https://js.stripe.com/v3/"> </script>
+{{--  --}}
 
         <div class="container">
             <h1 class="checkout-heading stylish-heading"> Checkout </h1>
@@ -145,8 +145,10 @@
 @endsection
 
 @section('extra-js')
+    <script src="https://js.stripe.com/v3/"></script>
     <script> 
-        (function(){
+        // ensure all the content is loaded and then run the below javascript
+         document.addEventListener('DOMContentLoaded', function () {
                         // Create a Stripe client.
             var stripe = Stripe('pk_test_h3CcIJurHplCOZu6M1RaFoGr00wGJMcAIS');
 
@@ -236,7 +238,7 @@
             // Submit the form
             form.submit();
             }
-        })();
+        });
     </script>
 @endsection
     

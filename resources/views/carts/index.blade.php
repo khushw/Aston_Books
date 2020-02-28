@@ -108,13 +108,14 @@
     <h3>You have no items saved for later</h3>
     @endif
 
-
+<example-component></example-component>
 @endsection
 
 @section('extra-js')
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     <script>
-       (function(){
+        // ensure all the content is laoded and then run the below script
+       document.addEventListener('DOMContentLoaded', function () {
            const classname = document.querySelectorAll('.quantity')
               
            Array.from(classname).forEach(function(element){
@@ -136,7 +137,7 @@
                 });
                })
            })
-        })(); 
+        });
     // alert('hi');
     </script>
     
