@@ -108,7 +108,6 @@
     <h3>You have no items saved for later</h3>
     @endif
 
-<example-component></example-component>
 @endsection
 
 @section('extra-js')

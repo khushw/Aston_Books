@@ -80,3 +80,7 @@ Route::delete('/reviews/{review}','ReviewController@destroy');
 Route::get('/reviews/{review}','ReviewController@edit')->name('review.edit');
 Route::patch('/reviews/{review}','ReviewController@update')->name('review.update');
  
+// route to navigate to the search bar
+Route::get('/search', function () {
+    return view('products.search');
+});

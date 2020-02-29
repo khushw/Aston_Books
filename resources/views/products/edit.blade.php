@@ -32,6 +32,17 @@
                     </div>
                 
                 </div>
+                
+                {{-- for the isbn no --}}
+                <div class="field">
+                    <label class="label" for="ISBN_NO">ISBN Number</label>
+                    
+                    <div class="control">
+                    <input class="input" type="text" name="ISBN_NO" id="ISBN_NO" value="{{$product->ISBN_NO}}"> 
+                    </div>
+                
+                </div>    
+
                     
                 {{-- field for description of the book --}}
                 <div class="field">
@@ -107,9 +118,9 @@
                     {{-- select allows me to create a dropdown --}}
                     {{-- option allows --}}
                 <select name="conditionselect" id="condition" class="form-control input-lg dynamic" data-dependent="labSubCat">
-                <option value="{{$conditionid}}">{{$conditionname}}</option>
+                <option value="{{$conditionname}}">{{$conditionname}}</option>
                         @foreach($conditions as $co)
-                            <option value="{{$co->id}}">{{$co->name}}</option>
+                            <option value="{{$co->name}}">{{$co->name}}</option>
                         @endforeach
                     </select>
                 </div>   

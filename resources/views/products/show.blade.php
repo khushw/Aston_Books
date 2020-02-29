@@ -32,6 +32,9 @@
 <hr>
 <small>Book Pages: {{$product->pages}}</small>
 <hr>
+<hr>
+<small>ISbN Number: {{$product->ISBN_NO}}</small>
+<hr>
 {{-- <hr>
 <small>Book Quantity: {{$product->quantity}}</small>
 <hr> --}}

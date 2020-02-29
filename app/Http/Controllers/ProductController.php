@@ -98,6 +98,7 @@ class ProductController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'price' => 'required',
+            'ISBN_NO' => 'required',
             'conditionselect'=>'required'
         ]);
         //create Product and store its details in the database
@@ -111,12 +112,14 @@ class ProductController extends Controller
         $product->book_publisher = $request->input('publisher');
         $product->weight= $request->input('weight');
         $product->pages= $request->input('pages');
+        $product->ISBN_NO= $request->input('ISBN_NO');
         $product->quantity = $request->input('quantity');
-        $product->published_date = $request->input('published_date');
-        // /$product->category_id =$request->input('categoryselect');
+        $product->published_date = $request->input('published_date');    
         $product->save();
-
+        
+        // once the product is created it will then sync its categories
         $product->categories()->sync($request->input('categories1'));
+        $product->save();
         
 
 
@@ -138,7 +141,7 @@ class ProductController extends Controller
         //finds the product and then returns the product show page for individual page
         
         $product  = Product::find($id);
-        $conditions=DB::table('conditions')->where('id',$product->condition_id)->value('name');
+        $conditions=DB::table('conditions')->where('name',$product->condition_id)->value('name');
         $username = DB::table('users')->where('id',$product->user_id)->value('name');
         $kilosymbol = "kg";
         $currency = "£";
@@ -180,7 +183,7 @@ class ProductController extends Controller
         $categories = DB::table('categories')->select('id','name')->get();
         
 
-        $conditionname = DB::table('conditions')->where('id',$product->condition_id)->value('name');
+        $conditionname = DB::table('conditions')->where('name',$product->condition_id)->value('name');
         $conditionid = DB::table('conditions')->where('id',$product->condition_id)->value('id');
 
        // $categoriesname = DB::table('categories')->where('id',$product->category_id)->value('name');
@@ -209,7 +212,8 @@ class ProductController extends Controller
         //valide the following fields from the form to ensure users are filling in correct information
         $this->validate($request,[
             'title' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'ISBN_NO' => 'required'
             //'condition'=>'required'
         ]);
         //create Product and store its details in the database
@@ -222,12 +226,13 @@ class ProductController extends Controller
         $product->book_publisher = $request->input('publisher');
         $product->weight= $request->input('weight');
         $product->pages= $request->input('pages');
+        $product->ISBN_NO= $request->input('ISBN_NO');
         $product->quantity = $request->input('quantity');
         $product->published_date = $request->input('published_date');
-        $product->save();
-
         //use synce as its an array, we update the categires fo the prodcts in the relationship table
         $product->categories()->sync($request->input('categories1'));
+        $product->save();
+
 
        //after a successful listing it will display the below message    
         return redirect("/products/".$product->id)->with('success', 'Your Listing is now updated!');

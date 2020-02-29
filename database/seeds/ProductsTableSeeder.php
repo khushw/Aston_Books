@@ -16,7 +16,7 @@ class ProductsTableSeeder extends Seeder
         //
         Product::truncate();
        // $category1 = Category::select('id')->where('name' , 'Science')->value('id');
-        $condition1 = Condition::select('id')->where('name' , 'Used')->value('id');
+        $condition1 = Condition::select('name')->where('name' , 'Used')->value('name');
 
         for ($i = 1; $i <= 6; $i++){
          Product::create([
@@ -29,6 +29,7 @@ class ProductsTableSeeder extends Seeder
             'weight' => '1',
             'pages' => '120',
             'user_id' => '1',
+            'ISBN_NO' => 'ISBN123' .$i,
             //'category_id' => $category1,
             'condition_id' => $condition1
         ])->categories()->attach(1);
