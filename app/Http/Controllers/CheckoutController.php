@@ -9,6 +9,8 @@ use App\Order;
 use App\OrderProduct;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlaced;
 use DB;
 use Cartalyst\Stripe\Exception\CardErrorException;
 
@@ -80,34 +82,15 @@ class CheckoutController extends Controller
                 'quantity' => Cart::instance('default')->count(),
             ],
            ]);
-           //Insert the cart items into the orders table
-            $order = Order::create([
-             'buyer_id' => auth()->user() ? auth()->user()->id :null,
-             'shipping_email' => $request->email,
-             'shipping_name' =>   $request->name,
-             'shipping_address' => $request->address,
-             'shipping_city'  => $request->city,
-            'shipping_postcode' => $request->postcode,
-            'shipping_phone' => $request->phone,
-            'billing_name_on_card' => $request->name_on_card,
-             'billing_subtotal' => Cart::subtotal(), 
-             'billing_tax'=> Cart::tax(),
-             'billing_total'=> Cart::total(),
-             'error' => null,
-             ]);
+            
+        $order = $this->addToOrdersTable($request , null);
 
-           //Insert into the link table, order_product
-           foreach (Cart::content() as $item) {
-               # code...
-               OrderProduct::create([
-                   'order_id' => $order->id,
-                   'product_id' => $item->model->id,
-                   'seller_id' => $item->model->user_id,
-                   'quantity' => $item->qty,
-               ]);
-           }
+        //    send an email confirmation aswell as the order details
+           Mail::to($request->email)->send(new OrderPlaced($order));
+
 
            $this->decreaseQuantites();
+
 
            //if its successful it will destroy the contents of the cart
            Cart::instance('default')->destroy();
@@ -168,6 +151,38 @@ class CheckoutController extends Controller
         //
     }
 
+    public function addToOrdersTable($request, $error)
+    {
+       //Insert the cart items into the orders table
+     $order = Order::create([
+        'buyer_id' => auth()->user() ? auth()->user()->id :null,
+        'shipping_email' => $request->email,
+        'shipping_name' =>   $request->name,
+        'shipping_address' => $request->address,
+        'shipping_city'  => $request->city,
+       'shipping_postcode' => $request->postcode,
+       'shipping_phone' => $request->phone,
+       'billing_name_on_card' => $request->name_on_card,
+        'billing_subtotal' => Cart::subtotal(), 
+        'billing_tax'=> Cart::tax(),
+        'billing_total'=> Cart::total(),
+        'error' => $error,
+        ]);
+
+      //Insert into the link table, order_product
+      foreach (Cart::content() as $item) {
+          # code...
+          OrderProduct::create([
+              'order_id' => $order->id,
+              'product_id' => $item->model->id,
+              'seller_id' => $item->model->user_id,
+              'quantity' => $item->qty,
+          ]);
+      }
+
+       return $order;
+    }
+     
     // decrease the quantitie that the user has ordered agaisnt the quantity in left in the stock
     protected function decreaseQuantites(){
         // loop through the contents of the cart
