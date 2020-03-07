@@ -84,3 +84,10 @@ Route::patch('/reviews/{review}','ReviewController@update')->name('review.update
 Route::get('/search', function () {
     return view('products.search');
 });
+
+
+Route::get('/messages', 'ContactsController@index');
+Route::get('/contacts', 'ContactsController@get');
+Route::get('/conversation/{id}', 'ContactsController@getMessagesFor');
+Route::post('/conversation/send', 'ContactsController@send');
+

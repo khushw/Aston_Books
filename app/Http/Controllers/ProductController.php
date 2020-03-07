@@ -261,7 +261,7 @@ class ProductController extends Controller
         
         
 
-        return redirect('/products')->with('success', 'Your Listing has been removed');
+        return back()->with('success', 'Your Listing has been removed');
     }
 
     public function forsale(){

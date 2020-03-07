@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

@@ -20,7 +20,9 @@
     <div>
         <h2> Conditions</h2>
     <ais-refinement-list attribute-name="condition_id"></ais-refinement-list>
-    </div>    
+    </div>
+    
+    
     <ais-results>
         <template slot-scope="{ result }">
             {{-- <h2>
