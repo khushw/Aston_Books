@@ -8,6 +8,62 @@
             <h3>Update Books</h3>
         {{-- we use a hidden PUT method to tell browser its a PUT not a POST
             action redirects the user to the product page they edited --}}
+
+            {{-- display the image --}}
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="/gallery/{{$product->thumbnail}}" alt="First slide">
+                    </div>
+                    <p hidden>{{$images = DB::table('photos')->where('product_id',$product->id)->get()}}
+                        <p>
+                            @foreach ( $images as $image)
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/gallery/{{$image->path}}" alt="other slide">                        
+                                <div class="carousel-caption d-none d-md-block">
+                                    <form action="{{ route('photos.destroy', $image->id) }}" method="POST">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">remove</button>
+                                    </form>
+                                </div> 
+                            </div>
+                            @endforeach
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                </div>
+            </div>
+
+
+            <div>
+                <form action="{{ route('photos.store', $product->id) }}" method="POST" class="form-group" enctype="multipart/form-data">
+                @csrf
+                    <input class="input" type="text" name="productId" id="productId" value="{{$product->id}}" hidden> 
+                    {{-- Add & Update Gallery --}}
+                    <div class="form-group">
+                        <label class="label" for="imagecollection"> Replace Product Thumbnail </label>
+                        <input type="file" class="form-control" name="thumbnail" >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label" for="imagecollection"> Replace Product Images </label>
+                        <input type="file" class="form-control" name="images[]" multiple >
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link" type="submit">Update</button>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+
+
         <form method="POST" action="/products/{{$product->id}}">
                 @csrf
                 @method('PUT')

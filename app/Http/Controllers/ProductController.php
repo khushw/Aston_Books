@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Product;
 use App\Condition;
+use App\Photo;
 use App\Category;
 use App\Review;
 use DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Gate;
 class ProductController extends Controller
 {
@@ -94,14 +97,26 @@ class ProductController extends Controller
     {
         //to get the id of the user 
         $id = Auth::id();
-        //valide the following fields from the form to ensure users are filling in correct information
-        $this->validate($request,[
-            'title' => 'required',
-            'price' => 'required',
-            'ISBN_NO' => 'required',
-            'conditionselect'=>'required'
-        ]);
-        //create Product and store its details in the database
+        // // valide the following fields from the form to ensure users are filling in correct information
+        // $this->validate($request,[
+        //     'title' => 'required',
+        //     'price' => 'required',
+        //     'ISBN_NO' => 'required',
+        //     'conditionselect'=>'required'
+        // ]);
+
+        if($request->hasfile('thumbnail'))
+        {
+            $thumb = $request->file('thumbnail');
+            $name = pathinfo($thumb->getClientOriginalName(), PATHINFO_FILENAME);
+            $filename =  $name.'-'.time().'.'.$thumb->getClientOriginalExtension();
+            $location = public_path('./publc/photos/' . $filename);
+            $thumb->move(public_path().'/gallery/',$filename);
+        }
+        
+
+
+    //     //create Product and store its details in the database
         $product = new Product;
         $product->title = $request->input('title');
         $product->price = $request->input('price');
@@ -114,8 +129,29 @@ class ProductController extends Controller
         $product->pages= $request->input('pages');
         $product->ISBN_NO= $request->input('ISBN_NO');
         $product->quantity = $request->input('quantity');
-        $product->published_date = $request->input('published_date');    
+        $product->published_date = $request->input('published_date');  
+        $product->thumbnail = $filename;  
         $product->save();
+
+        if($request->hasfile('images'))
+        {
+            foreach($request->file('images') as $image) {
+
+                $name = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $filename =  $name.'-'.time().'.'.$image->getClientOriginalExtension();
+                $location = public_path('./publc/photos/' . $filename);
+                $image->move(public_path().'/gallery/',$filename);
+                // width - height
+                // Images::make($image)->resize(640, 480)->save($location);
+
+                $photo = new Photo;
+                $photo->product_id = $product->id;
+                $photo->path = $filename;
+                $photo->save();  
+            }
+    
+        }
         
         // once the product is created it will then sync its categories
         $product->categories()->sync($request->input('categories1'));
@@ -256,6 +292,16 @@ class ProductController extends Controller
        //it will delete the product and detach any catgories attached with the product
         $product->categories()->detach();
        
+        $product->delete();
+        File::delete(public_path('/gallery/'.$product->thumbnail_path));
+        
+
+        $image = DB::table('images')->where('product_id', $id)->get();
+        foreach($image as $im){            
+            File::delete(public_path('/gallery/'.$im->path));
+            $animage = Image::find($im->id);
+            $animage->delete();   
+        }
         $product->delete();
 
         

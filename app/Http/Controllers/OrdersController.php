@@ -27,6 +27,7 @@ class OrdersController extends Controller
         $id = Auth::id();
         //find all the orders
         $orders = Order::all();
+
         return view('orders.index')->with(['orders' => $orders , 'id' => $id]);
     }
 

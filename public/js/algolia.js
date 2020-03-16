@@ -16,11 +16,12 @@
                 //'suggestion' templating function used to render a single suggestion
                 suggestion: function (suggestion) {
                     // due to styling issues (was display using flex we dont want that) custom defined variable 
-                    // once image added put this in the src attribute ${window.location.origin}/${suggestion.image}
+                    // added the img src, /gallery/product thubnail, due to thumbnail stored in /gallery directory
                     const markup = ` 
                         <div class = "algolia-result">
                             <span>
-                                <img src="" alt="img" class="algolia-thumb">
+                                
+                                <img src="/gallery/${suggestion.thumbnail}" alt="img" class="algolia-thumb">
                                 ${suggestion._highlightResult.title.value}
                             </span>
                             <span>£${suggestion._highlightResult.price.value}</span>

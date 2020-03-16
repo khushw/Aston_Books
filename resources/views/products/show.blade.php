@@ -9,6 +9,30 @@
 {{-- product details/all the fields --}}
 <h1>{{$product->title}}</h1>
 <hr>
+{{-- display the image --}}
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="/gallery/{{$product->thumbnail}}" alt="First slide">
+        </div>
+        <p hidden>{{$images = DB::table('photos')->where('product_id',$product->id)->get()}}
+            <p>
+                @foreach ( $images as $image)
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/gallery/{{$image->path}}" alt="First slide">                        
+                </div>
+                @endforeach
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+    </div>
+</div>
+
 <small>Book Price: {{$currency}} {{$product->price}}</small>
 <hr>
 <hr>

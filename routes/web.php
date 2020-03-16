@@ -30,6 +30,7 @@ Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 
 Route::resource('/products', 'ProductController');
+Route::resource('/photos','PhotoController');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/conditions' ,'ConditionController');
 

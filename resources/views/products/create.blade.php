@@ -24,7 +24,8 @@
     <div id="wrapper">
         <div id="createproduct" class="container">
             <h3>Upload Books</h3>
-            <form method="POST" action="/products" id="create_products_form">
+            {{-- added enctype for the user to upload images --}}
+            <form method="POST" action="/products" id="create_products_form" enctype="multipart/form-data">
                 @csrf
                 
                 {{-- name of the book --}}
@@ -163,6 +164,17 @@
                         @endforeach
                     </select>
                 </div> 
+
+                {{-- for user to upload multiple images --}}
+                <div class="form-group">
+                    <label class="label" for="imagecollection"> Product Thumbnail </label>
+                    <input type="file" class="form-control" name="thumbnail" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="label" for="imagecollection"> Product Images </label>
+                    <input type="file" class="form-control" name="images[]" multiple required>
+                </div>
 
                 <div class="field is-grouped">
                     <div class="control">

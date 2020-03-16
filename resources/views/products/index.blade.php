@@ -52,6 +52,8 @@
     @forelse ($products as $product)
   
     <div class="list-group-item">
+        {{-- display the thumbnail --}}
+        <img src="/gallery/{{$product->thumbnail}}">
         <h3><a href="/products/{{$product->id}}">{{$product->title}}</a></h3>
         <small> Price of the product {{$product->price}}</small>
     </div>
