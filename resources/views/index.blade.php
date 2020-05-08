@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content')
+@section('index')
         <div class="jumbotron text-center">
                 <h1>{{$title}}</h1>
                 <p>This is a dynamic and friendly website for buying and selling books</p>
@@ -14,7 +14,6 @@
                          
                 @empty
                         <div><h3> No items found </h3></div>
-                        
                 @endforelse 
                 
                 <button><a href="{{ route ("products.index")}}">View all Books</a></button>

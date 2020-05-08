@@ -2,7 +2,7 @@
 
 @extends('layouts.app')
 
-@section ('content')
+@section ('index')
 
 {{-- <h1>Create Product</h1>
     {!! Form::open(['action' => 'ProductController@store','method' => 'POST']) !!}
@@ -190,12 +190,14 @@
 {{-- to disable the submit button once if the user click on it  --}}
 @section('extra-js')
         <script type="text/javascript">
+         document.addEventListener('DOMContentLoaded', function () {
                 $(document).ready(function () {
                 $("#create_products_form").submit(function (e) {
                     $("#disable-button").attr("disabled", true);
                     return true;
                 });
             });
+        });
         </script>
 @endsection
 @endcan

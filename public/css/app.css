@@ -11389,3 +11389,24 @@ a.text-dark:focus {
   font-weight: 500;
 }
 
+@media (min-width: 300px) {
+  .pagination {
+    -webkit-box-pack: center;
+            justify-content: center;
+  }
+}
+
+.products_title {
+  margin-top: -4%;
+}
+
+#continueShopping {
+  margin-left: 74%;
+}
+
+#itemCount {
+  margin: auto;
+  padding-bottom: 1%;
+  padding-top: 1%;
+}
+

@@ -7,10 +7,13 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
 /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
  * how you can use CSS to style your Element's container.
  */
+
+//  Styling for the Checkout Page
  .StripeElement {
     box-sizing: border-box;
   
@@ -42,3 +45,27 @@
   .sidebar li.active {
     font-weight: 500;
    }
+// Styling for the Products Index Page
+   @media  (min-width: 300px){
+    .pagination {
+       justify-content: center; 
+    }
+   }
+.products_title{
+   margin-top: -4%;
+}
+
+// .product-name{
+//   display: flex;
+//   align-items: center;
+// }
+
+#continueShopping{
+  margin-left: 74%;
+}
+
+#itemCount{ 
+margin: auto;
+padding-bottom: 1%;
+padding-top: 1%;
+}

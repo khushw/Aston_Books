@@ -48,15 +48,15 @@ class ProductController extends Controller
         //for the price low to high or vice versa we check the sort like we defined in the index view
         // added pagination here as it only works with query builder and there is no query builder here
         if(request()->sort == "low_high"){
-            $products = $products->orderBy('price')->paginate(5);
+            $products = $products->orderBy('price')->paginate(6);
         } elseif (request()->sort == "high_low") {
-            $products = $products->orderBy('price', 'desc')->paginate(5);
+            $products = $products->orderBy('price', 'desc')->paginate(6);
         } elseif (request()->sort == "date_listed_earliest") {
-            $products = $products->orderBy('created_at')->paginate(5);
+            $products = $products->orderBy('created_at')->paginate(6);
         } elseif (request()->sort == "date_listed_longest") {
-            $products = $products->orderBy('created_at', 'desc')->paginate(5);
+            $products = $products->orderBy('created_at', 'desc')->paginate(6);
         } else {
-            $products = $products->paginate(5);
+            $products = $products->paginate(6);
         }
 
         return view('products.index')->with([

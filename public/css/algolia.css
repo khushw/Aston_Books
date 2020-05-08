@@ -1,7 +1,8 @@
 @import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
 .aa-input-container {
   display: inline-block;
-  position: relative; }
+  position: relative;
+  padding-left: 62.8%; }
 .aa-input-search {
   width: 400px;
   padding: 12px 28px 12px 12px;

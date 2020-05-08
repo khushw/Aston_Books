@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/test/richard', function () {
-    return view('test.richard');
+Route::get('/test', function () {
+    return view('test');
 });
 
 
@@ -33,6 +33,8 @@ Route::resource('/products', 'ProductController');
 Route::resource('/photos','PhotoController');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/conditions' ,'ConditionController');
+
+
 
 
 
