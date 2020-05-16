@@ -11410,3 +11410,22 @@ a.text-dark:focus {
   padding-top: 1%;
 }
 
+#create_page {
+  padding-top: 1%;
+}
+
+@media (min-width: 767px) {
+  #create_page_ads {
+    margin: auto;
+    padding-left: 3%;
+  }
+}
+
+@media (max-width: 767px) {
+  #create_page_ads {
+    margin: auto;
+    padding-bottom: 3%;
+    width: 50%;
+  }
+}
+

@@ -67,8 +67,8 @@
                     <div class="filter-content collapse" id="collapse_aside3" style="">
                         <div class="card-body">
                             <i class='fas fa-pound-sign'></i>
-                            <a href="{{ route("products.index", ["category" => request()->category , "sort" => "date_listed_earliest"]) }}">  Latest</a><br>
-                            <a href="{{ route("products.index", ["category" => request()->category , "sort" => "date_listed_longest"]) }}">   Oldest</a>
+                            <a href="{{ route("products.index", ["category" => request()->category , "sort" => "date_listed_earliest"]) }}">  Oldest</a><br>
+                            <a href="{{ route("products.index", ["category" => request()->category , "sort" => "date_listed_longest"]) }}">   Latest</a>
                         </div> <!-- card-body.// -->
                     </div>
                 </article> <!-- filter-group  .// -->
