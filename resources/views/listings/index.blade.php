@@ -17,6 +17,7 @@
                             <th scope="col">Product Name</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Shipping To</th>
+                            <th scope="col">Date Sold</th>
                             <th scope="col">Buyer Name</th>
                             <th scope="col">Actions</th>
                             <th scope="col">Shipped</th>
@@ -41,6 +42,7 @@
                                                     City:       {{ DB::table('orders')->where('id' , $listing->order_id )->value('shipping_city')}} <br>
                                                     Postcode:   {{ DB::table('orders')->where('id' , $listing->order_id )->value('shipping_postcode')}} <br>  
                                                 </td>
+                                                <td>{{ DB::table('products')->where('id' , $listing->product_id )->value('created_at')}}</td>
                                                 <td>{{ DB::table('users')->where('id' , DB::table('orders')->where('id' , $listing->order_id )->value('buyer_id') )->value('name')}}</td>
                                                 <td><a href="{{route("listings.shipped" , $listing->id)}}"><button type="button" class="btn btn-success float-left">Shipped</button></a></td>
                                                 <td> 
@@ -64,6 +66,7 @@
                                                     City:       {{ DB::table('orders')->where('id' , $listing->order_id )->value('shipping_city')}} <br>
                                                     Postcode:   {{ DB::table('orders')->where('id' , $listing->order_id )->value('shipping_postcode')}} <br>  
                                                 </td>
+                                                <td>{{$listing->updated_at }}</td>
                                                 <td>{{ DB::table('users')->where('id' , DB::table('orders')->where('id' , $listing->order_id )->value('buyer_id') )->value('name')}}</td>
                                                 <td><a href="{{route("listings.shipped" , $listing->id)}}"><button type="button" class="btn btn-success float-left">Shipped</button></a></td>
                                                 <td> 
