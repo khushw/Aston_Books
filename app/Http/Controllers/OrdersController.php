@@ -6,6 +6,7 @@ use App\OrderProduct;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use DB;
 
 class OrdersController extends Controller
 {
@@ -25,8 +26,11 @@ class OrdersController extends Controller
     {
         //find the id of the user currently logged in
         $id = Auth::id();
-        //find all the orders
-        $orders = Order::all();
+        //find all the orders, newest order first
+        // $orders = Order::all();
+        $orders = DB::table('orders')
+                ->orderBy('created_at', 'desc')
+                ->get();
 
         return view('orders.index')->with(['orders' => $orders , 'id' => $id]);
     }
@@ -65,8 +69,10 @@ class OrdersController extends Controller
         // find the associated products with the order id
         $products = $order->products;
         $shipped = OrderProduct::all();
+
+        $prod = OrderProduct::all();
        
-        return view('orders.show')->with(["order" => $order, "products" => $products,"shipped"=>$shipped]);
+        return view('orders.show')->with(["order" => $order, "products" => $products,"shipped"=>$shipped , "prod"=> $prod]);
     }
   
     /**

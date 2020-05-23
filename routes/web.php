@@ -28,6 +28,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
+Route::get('/menu', 'PagesController@menu');
+
 
 Route::resource('/products', 'ProductController');
 Route::resource('/photos','PhotoController');
@@ -79,9 +81,11 @@ Route::get('/forsale', 'ProductController@forsale')->name('forsale.index');
 
 #Replies
 Route::post('/products/{product}/reviews','ReviewController@store')->name('review.store');
-Route::delete('/reviews/{review}','ReviewController@destroy');
+Route::delete('/reviews/{review}','ReviewController@destroy')->name('review.delete');
 Route::get('/reviews/{review}','ReviewController@edit')->name('review.edit');
 Route::patch('/reviews/{review}','ReviewController@update')->name('review.update');
+
+// Route::resource('/reviews' , 'ReviewController'); 
  
 // route to navigate to the search bar
 Route::get('/search', function () {

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Orders</div>
 
@@ -17,7 +17,7 @@
                             <th scope="col">Shipping Address</th>
                             <th scope="col">Total Tax Paid</th>
                             <th scope="col">Total Cost Paid</th>
-                            {{-- <th scope="col">Shipped</th> --}}
+                            <th scope="col">Date and Time ordered</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
@@ -44,6 +44,7 @@
                                         @endif
                                         {{-- {{$order->shipped}} 
                                     </td> --}}
+                                    <td>{{$order->created_at}}</td>
                                     <td>
                                         <a href="/orders/{{$order->id}}"><button type="button" class="btn btn-primary float-left">View Details</button></a> 
                                     </td>

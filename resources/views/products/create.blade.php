@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-2" id="create_page_ads">
-        <div class="card" >
+        <div class="card" id="card_create">
             <div class="card-header">
               Featured Ads
             </div>

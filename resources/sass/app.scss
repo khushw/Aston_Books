@@ -16,28 +16,28 @@
 //  Styling for the Checkout Page
  .StripeElement {
     box-sizing: border-box;
-  
+
     height: 40px;
-  
+
     padding: 10px 12px;
-  
+
     border: 1px solid transparent;
     border-radius: 4px;
     background-color: white;
-  
+
     box-shadow: 0 1px 3px 0 #e6ebf1;
     -webkit-transition: box-shadow 150ms ease;
     transition: box-shadow 150ms ease;
   }
-  
+
   .StripeElement--focus {
     box-shadow: 0 1px 3px 0 #cfd7df;
   }
-  
+
   .StripeElement--invalid {
     border-color: #fa755a;
   }
-  
+
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
   }
@@ -48,7 +48,7 @@
 // Styling for the Products Index Page
    @media  (min-width: 300px){
     .pagination {
-       justify-content: center; 
+       justify-content: center;
     }
    }
 .products_title{
@@ -64,7 +64,7 @@
   margin-left: 74%;
 }
 
-#itemCount{ 
+#itemCount{
 margin: auto;
 padding-bottom: 1%;
 padding-top: 1%;
@@ -91,3 +91,146 @@ padding-top: 1%;
     width: 50%;
   }
  }
+
+
+//  styling for the edit products page
+
+// if i want the styling box downards
+//  #radio_styling {
+//   overflow-y: scroll;
+//   display: inline-block;
+//   max-height: 200px;
+
+// }
+
+#radio_styling{
+  display: inline-flex;
+  max-width: 100%;
+  overflow-x: scroll;
+  border-style: outset;
+}
+#edit_images{
+  padding-top: 1%;
+}
+
+#cursor{
+  background-color: grey;
+}
+
+#image_styling{
+  outline-style: double;
+  outline-color: lightgrey;
+}
+
+// styling for product show page
+#product_info_1{
+  list-style: inside;
+}
+
+ul>li>label{
+  font-weight: bold;
+  font-size: larger;
+}
+#review_styling{
+    overflow-y: scroll;
+    height: 197px;
+}
+
+#container_cursor{
+  position: relative;
+  text-align: center;
+  color: white;
+}
+#cursor_1{
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
+// styling for the landing / home page
+#home_page_main{
+  display: block;
+}
+
+.styling_first{
+  position: relative;
+  text-align: left;
+  padding-top: 10%;
+  color: white;
+}
+#styling_first_h1{
+  font-size: 2.5rem;
+}
+
+#styling_first_p{
+margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+.styling_second{
+  position: relative;
+  text-align: center;
+  padding-top: 10%;
+  color: white;
+}
+
+.styling_third{
+  position: relative;
+  text-align: right;
+  padding-top: 10%;
+  color: white;
+}
+
+#next_cursor{
+  width: 10%;
+}
+
+#featured_text{
+position: relative;
+text-align: center;
+font-size: x-large;
+}
+
+#book_logo{
+  color: slategray;
+}
+// end of home page styling
+
+
+// styling for the shopping cart
+
+@media  (min-width: 1000px){
+#cart_footer{
+  position: relative;
+  right:-78%;
+}
+
+#cart_footer_div{
+  position: relative;
+  right:-78%;
+  margin: 5px;
+}
+}
+
+#card_index{
+  border-block-start-color: slategray;
+    border-left-width: medium;
+    border-left-color: slategray;
+}
+
+#card_create{
+  border-block-start-color: slategray;
+  border-left-width: medium;
+  border-left-color: slategray;
+}
+
+#card_edit{
+  border-block-start-color: slategray;
+  border-left-width: medium;
+  border-left-color: slategray;
+} 
+
+#body{
+  padding-top: inherit;
+}

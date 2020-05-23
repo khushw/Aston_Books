@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Sold Products</div>
 
@@ -31,7 +31,7 @@
                                @if($listing->shipped ==0 )
                                     @if (Auth::id() == $listing->seller_id)
                                             
-                                            <tr style="background-color:red">
+                                            <tr style="color:red">
                                                 <th scope="row"> {{$listing->order_id}}</th>
                                                 <td>  {{$listing->product_id}}</td>
                                                 <td>  {{ DB::table('products')->where('id' , $listing->product_id )->value('title')}}</td>
@@ -54,7 +54,7 @@
                                     @endif
                                 @elseif($listing->shipped == 1 )
                                     @if (Auth::id() == $listing->seller_id)                                         
-                                            <tr style="background-color:green">
+                                            <tr style="color:green">
                                                 <th scope="row"> {{$listing->order_id}}</th>
                                                 <td>  {{$listing->product_id}}</td>
                                                 <td>  {{ DB::table('products')->where('id' , $listing->product_id )->value('title')}}</td>

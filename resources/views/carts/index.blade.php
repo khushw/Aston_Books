@@ -78,9 +78,9 @@
                         <a href="#" class="btn btn-outline-secondary pull-right">Save For Later</a>
                     </div> --}}
                 </div>
-                <div class="card-footer">
-                    <a href="{{route("checkout.index")}}" class="btn btn-success pull-right">Checkout</a>
-                    <div class="pull-right" style="margin: 5px">
+                <div class="card-footer" >
+                    <a href="{{route("checkout.index")}}" class="btn btn-success" id="cart_footer">Checkout</a>
+                    <div id="cart_footer_div">
                         Subtotal: <b>£{{Cart::subtotal()}}</b>
                     </div>
                 </div>

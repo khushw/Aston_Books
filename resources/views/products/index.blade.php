@@ -22,8 +22,8 @@
             {{-- filters side bar test --}}
             <aside class="col-md-8">
             <!-- COMPONENTS SIDEBAR -->
-            <output style = "position:fixed;">
-            <div class="card">
+            <output style = "position:fixed;" id="output_index">
+            <div class="card" id="card_index">
                 <article class="filter-group">
                     <header class="card-header">
                         <a href="#" data-toggle="collapse" data-target="#collapse_aside1" aria-expanded="false" class="collapsed">
@@ -109,7 +109,7 @@
                                     </form>
                                 @endif
                             </div>
-                            <small class="text-muted">{{$product->published_date}}</small>
+                            <small class="text-muted" title="Date Published">{{$product->published_date}}</small>
                             </div>
                         </div>
                         </div>

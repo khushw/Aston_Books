@@ -20,13 +20,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     
+    {{-- for the index page styling --}}
+    {{-- <link href="https://getbootstrap.com/docs/4.0/examples/carousel/carousel.css" rel="stylesheet"> --}}
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('extra-css')
     
 </head>
-<body>
-
+<body id="body">
+    {{-- anchor here so user can click and come top of page, points to the one in the --}}
+    <a name="top"></a>
     <div id="app"> 
         {{-- below includes the navbar from the  inc folder --}}
         @include("inc.navbar")
@@ -42,5 +46,12 @@
     @yield("index")
     
     @yield("extra-js")
+
+    <!-- FOOTER -->
+    <hr>
+    <footer class="container">
+        <p class="float-right"><a href="#top">Back to top</a></p>
+        <p>© 2019-2020 Aston Books, Ltd. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+      </footer>
 </body>
 </html>

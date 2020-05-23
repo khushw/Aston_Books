@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Orders Details</div>
 
@@ -18,6 +18,7 @@
                             <th scope="col">Ordered Quantity</th>
                             <th scope="col">Seller Name</th>
                             <th scope="col">Shipped</th>
+                            <th scope="col">Date and Time shipped</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -38,6 +39,7 @@
                                             <p style="background-color:green">  Item(s) is on the way! </p>
                                         @endif
                                     </td>
+                                    <td>{{ DB::table('order_product')->where(['product_id' => $product->id , 'order_id' => $order->id])->value('updated_at')}} </td>
                                 </tr>  
                             @endforeach
                         </tbody>

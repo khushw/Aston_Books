@@ -26,6 +26,18 @@ class PagesController extends Controller
         return view('about')->with('title',$title);
     }
 
+    public function menu(){
+        $title = 'Menu';
+        // return view('index', compact('title'));  //2 ways of doing this below and this one(passing single value)
+        return view('menu')->with('title',$title);
+    }
+    
+    public function test(){
+        $title = 'About Us';
+        // return view('index', compact('title'));  //2 ways of doing this below and this one(passing single value)
+        return view('test')->with('title',$title);
+    }
+
     public function services(){
         $data = array(
             'title' => 'Services',
