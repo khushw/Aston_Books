@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderPlaced;
 use DB;
+use App\Notifications\NewOrder;
+use App\User;
 use Cartalyst\Stripe\Exception\CardErrorException;
 
 class CheckoutController extends Controller
@@ -97,6 +99,7 @@ class CheckoutController extends Controller
            //when successful user will be redirected to the thank you page
            return redirect()->route('thankyou.index')->with('success' , 'Thank You for Shopping with Us!');
        }
+
        //if we do get bad cards coming through we will use the below library to throw an errro for us 
        catch(CardErrorException $e){
            //returns the error cought from the CardErrorException file
@@ -169,6 +172,17 @@ class CheckoutController extends Controller
         'error' => $error,
         ]);
 
+
+        $id = auth()->user() ? auth()->user()->id :null;
+        if(Auth::id() == $id){
+            // $order_id = $order->id->orderBy('created_at', 'desc')->first();  
+            $order_id = $order->orderBy('created_at', 'desc')
+            ->get('id')->first(); 
+            User::find($id)->notify(new NewOrder($order_id)); 
+        }
+
+        // $order_id = $order->value('id'); 
+
       //Insert into the link table, order_product
       foreach (Cart::content() as $item) {
           # code...
@@ -178,6 +192,7 @@ class CheckoutController extends Controller
               'seller_id' => $item->model->user_id,
               'quantity' => $item->qty,
           ]);
+          
       }
 
        return $order;

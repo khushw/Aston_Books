@@ -15,7 +15,7 @@
                             <th scope="col">Order ID</th>
                             <th scope="col">Order Email</th>
                             <th scope="col">Shipping Address</th>
-                            <th scope="col">Total Tax Paid</th>
+                            {{-- <th scope="col">Total Tax Paid</th> --}}
                             <th scope="col">Total Cost Paid</th>
                             <th scope="col">Date and Time ordered</th>
                             <th scope="col">Actions</th>
@@ -34,7 +34,7 @@
                                         City: {{$order->shipping_city}} <br>
                                         Postcode:{{$order->shipping_postcode}} <br>
                                     </td>
-                                    <td>{{$order->billing_tax}}</td>
+                                    {{-- <td>{{$order->billing_tax}}</td> --}}
                                     <td>{{$order->billing_total}}</td>
                                     {{-- <td>
                                         @if ($order->shipped == 0 )

@@ -15,11 +15,16 @@ Route::get('/test', function () {
     return view('test');
 });
 
+Route::get('markAsRead',function(){
+    // User::find(1)->notify(new NewOrder);
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+    // return view('index');  
+})->name('markRead');
 
+Auth::routes(['verify' => true]);
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 // Route::get('/users/{id}/{name}', function($id,$name){
 //     return 'this is a user ' .$id .'with name '.$name;

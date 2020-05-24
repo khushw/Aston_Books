@@ -11,15 +11,18 @@ class NewOrder extends Notification
 {
     use Queueable;
     public $user;
+    // declare this variable to pass order id
+    protected $order_id;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($order_id)
     {
-        //
+        //initialise order id
+        $this->order_id = $order_id;
     }
 
     /**
@@ -56,7 +59,8 @@ class NewOrder extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'Plick Click here to view your order',
+            // 'data' => 'Plick Click here to view your order',
+            'data' => 'Order' . $this->order_id . ' placed',
         ];
     }
 }
