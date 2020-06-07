@@ -73,7 +73,7 @@
                                         <p><a class="btn btn-secondary" href="/products/{{$product->id}}" role="button">View details »</a></p>
                                 </div><!-- /.col-lg-4 -->
                                 @empty
-                                <div><h3> No items found </h3></div>
+                                <div><h3> Currently no featured items </h3></div>
                                 @endforelse
                             {{-- <div class="col-lg-4">
                               <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">

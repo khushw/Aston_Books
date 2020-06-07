@@ -11560,3 +11560,66 @@ ul > li > label {
   padding-top: inherit;
 }
 
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  /* remove extra space below image */
+}
+
+#box_show {
+  width: 440px;
+  height: 440px;
+}
+
+#box_edit {
+  width: 440px;
+  height: 440px;
+}
+
+.search-results-container-algolia {
+  display: grid;
+}
+
+.result-title {
+  color: black;
+  font-size: x-large;
+}
+
+.result-description {
+  color: black;
+}
+
+.result-price {
+  color: black;
+}
+
+.img_instant_search {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 5%;
+  border-bottom: ridge;
+}
+
+.pagination_search {
+  display: inline-block;
+}
+
+.ais-pagination__link {
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.ais-refinement-list__value {
+  color: black !important;
+  font-size: 18px !important;
+}
+
+.ais-refinement-list__count {
+  color: darkgrey !important;
+  background: rgba(39, 81, 108, 0.2) !important;
+  margin-left: auto;
+  margin-right: 57px;
+}
+

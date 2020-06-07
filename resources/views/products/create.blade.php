@@ -31,52 +31,52 @@
                 
                         <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="title">Book Title</label>
+                            <label for="title" class="label">Book Title</label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="name of the book">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="author">Book Author</label>
+                            <label for="author" class="label">Book Author</label>
                             <input type="text" class="form-control" name="author" id="author">
                         </div>
                         </div>
                 
                         <div class="form-group">
-                        <label for="description">Description</label>
+                        <label for="description" class="label">Description</label>
                         <textarea class="form-control" name="description" id="description" placeholder="please describe the book in a few words...."></textarea>
                         </div>
                 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="publisher">Book Publisher</label>
+                                <label for="publisher" class="label">Book Publisher</label>
                                 <input type="text" class="form-control" name="publisher" id="publisher">
                             </div>
                 
                             <div class="form-group col-md-4">
-                                <label for="ISBN_NO">International Standard Book Number</label>
-                                <input type="text" class="form-control" name="ISBN_NO" id="ISBN_NO" placeholder="978-3-16-148410-0">
+                                <label for="ISBN_NO" class="label">International Standard Book Number</label>
+                                <input type="text" class="form-control" name="ISBN_NO" id="ISBN_NO" placeholder="9783161484100">
                             </div>
                 
                             <div class="form-group col-md-4">
-                                <label for="weight">Weight of Book</label>
+                                <label for="weight" class="label">Weight of Book</label>
                                 <input class="form-control"  type="number" name="weight" id="weight" placeholder='Enter weight in KG'>
                             </div>
                         </div>
                 
                         <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="pages">Pages</label>
+                            <label for="pages" class="label">Pages</label>
                             <input class="form-control" type="number" name="pages" id="pages" placeholder='Enter total number of pages'>
                         </div>
                 
                 
                         <div class="form-group col-md-4">
-                            <label for="quantity">Quantity</label>
+                            <label for="quantity" class="label">Quantity</label>
                             <input class="form-control" type="number" name="quantity" id="quantity"  placeholder='if > 1, then ensure books have the same condition'>
                             </select>
                         </div>
                 
                         <div class="form-group col-md-2">
-                            <label for="price">Price</label>
+                            <label for="price" class="label">Price</label>
                             <input  class="form-control" type="number" name="price" id="price" placeholder="GBP">
                         </div>
                         </div>
@@ -84,18 +84,18 @@
                 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="published_date">Date Published</label>
+                                <label for="published_date" class="label">Date Published</label>
                                 <input  class="form-control" type="date" name= "published_date" placeholder="enter year the book was published at">
                             </div>
                 
                             <div class="form-group col-md-6">
-                                <label for="condition">Condition</label>
+                                <label for="condition" class="label">Condition</label>
                                 {{-- select allows me to create a dropdown --}}
                                 {{-- option allows --}}
                                 <select name="conditionselect" id="condition" class="form-control input-lg dynamic" data-dependent="labSubCat">
                                     <option value="{{$conditions}}">Select Condition</option>
                                         @foreach($conditions as $co)
-                                            <option value="{{$co->name}}">{{$co->name}}</option>
+                                            <option value="{{$co->name}}">{{$co->name}} ({{$co->description}} )</option>
                                         @endforeach
                                 </select>
                             </div>
@@ -105,9 +105,9 @@
                         <div class="form-group">
                             {{-- select allows me to create a dropdown --}}
                             {{-- option allows to display individual values from the dropdown --}}
-                            <label class="categories">Select Category</label>
+                            <label class="categories" class="label">Select Category</label>
                             <select name="categories1[]" id="categories" class="form-control input-lg dynamic" data-dependent="labSubCat" multiple>
-                            <option value="{{$categories}}" disabled selected>Select Category <small class="text-muted">Ctrl + click for multiple categories</small></option>
+                            <option value="{{$categories}}" disabled selected> <small class="text-muted">Ctrl + click for multiple categories</small></option>
                                 @foreach($categories as $ca)
                                     <option value="{{$ca->id}}">{{$ca->name}}</option>
                                 @endforeach

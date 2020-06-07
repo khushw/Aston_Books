@@ -33,6 +33,7 @@ $factory->define(App\Message::class, function (Faker $faker) {
     do{
         $from = rand(1 , 15);
         $to = rand(1 , 15);
+        // if below condition is met we will continue to perform the above
     } while($from == $to);
     
     return [

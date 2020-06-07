@@ -98,7 +98,7 @@ class CartController extends Controller
         } 
         // if a user tries to edit the quantity it will flash an error message
         if($request->quantity > $request->productQuantity) {
-            session()->flash('errors', collect(['We currently do not have enough books in stock for']));
+            session()->flash('errors', collect(['We currently do not have enough books in stock']));
             return response()->json(['success' => false], 400);
         } 
 

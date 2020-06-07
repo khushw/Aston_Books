@@ -51,7 +51,7 @@
     <hr>
     <footer class="container">
         <p class="float-right"><a href="#top">Back to top</a></p>
-        <p>© 2019-2020 Aston Books, Ltd. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        <p>© 2019-2020 Aston Books, Ltd. · <a href="#">Privacy</a> · <a href="#">Terms</a> .<a href="/messages">Messages</a></p>
       </footer>
 </body>
 </html>

@@ -29,21 +29,25 @@ in contrller and then remove the listing from the application --}}
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
+                    <div id="box_show">
                     <img class="d-block w-100" src="/gallery/{{$product->thumbnail}}" alt="First slide">
-                </div>
+                    </div>  
+                  </div>
                 <p hidden>{{$images = DB::table('photos')->where('product_id',$product->id)->get()}}
                     <p>
                         @foreach ( $images as $image)
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="/gallery/{{$image->path}}" alt="First slide">                        
-                        </div>
+                            <div id="box_show">
+                              <img class="d-block w-100" src="/gallery/{{$image->path}}" alt="First slide">                        
+                            </div>  
+                          </div>
                         @endforeach
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-prev-icon" aria-hidden="true" id="cursor"></span>
                             <span class="sr-only">Previous</span>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-next-icon" aria-hidden="true" id="cursor"></span>
                             <span class="sr-only">Next</span>
                         </a>
             </div>
@@ -79,18 +83,13 @@ in contrller and then remove the listing from the application --}}
             <input type="number" value="{{$product->quantity}}" aria-label="Search" class="form-control" style="width: 100px" readonly>
             @can('list-edit-products')
             @if($product->quantity > 0)
-            {{-- button to add the product to the shopping cart with the bellow information  --}}
-                {{-- <form action="{{route('carts.store')}}" method="POST"> --}}
-                      {{-- {{ csrf_field() }} --}}
                       <input type="hidden" name="id" value ="{{ $product->id}}">
                       <input type="hidden" name="title" value ="{{ $product->title}}">
                       <input type="hidden" name="price" value ="{{ $product->price}}">
                       <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                       </button>
-                {{-- </form> --}}
-            @endif          
-
+            @endif
           </form>
           @endcan
         </div>
@@ -189,7 +188,7 @@ in contrller and then remove the listing from the application --}}
                   </li>
                   <li class="text-muted">
                     Seller Name:  
-                    <label>{{$username}}</label>
+                    <label><a href="/messages">{{$username}}</a></label>
                   </li>
                 </ul>
               </div>
@@ -245,7 +244,7 @@ in contrller and then remove the listing from the application --}}
             <div class="card-header" id="headingFour">
               <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                  Leave a Review
+                  Post Review
                 </button>
               </h5>
             </div>

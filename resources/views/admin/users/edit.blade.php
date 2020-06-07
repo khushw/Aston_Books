@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-            <div class="card-header">Edit User {{$user->name}}</div>
+            <div class="card-header">Edit User: {{$user->name}}</div>
               
             {{-- for the admin to change the users email --}}
                 <div class="card-body">

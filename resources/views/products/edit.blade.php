@@ -27,17 +27,21 @@
             <div class="col-md-9" id="show_images">
                 <div class="container">
                     <div class="row d-flex justify-content-center" id="image_styling">
-                        <div class="col-md-11">
+                        <div class="col-md-6">
                             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img class="d-block w-100" src="/gallery/{{$product->thumbnail}}" alt="First slide">
+                                        <div id="box_edit">
+                                            <img class="d-block w-100" src="/gallery/{{$product->thumbnail}}" alt="First slide">
+                                        </div>    
                                     </div>
                                     <p hidden>{{$images = DB::table('photos')->where('product_id',$product->id)->get()}}
                                         <p>
                                             @foreach ( $images as $image)
                                             <div class="carousel-item">
-                                                <img class="d-block w-100" src="/gallery/{{$image->path}}" alt="other slide">
+                                                <div id="box_edit">    
+                                                    <img class="d-block w-100" src="/gallery/{{$image->path}}" alt="other slide">
+                                                </div>
                                                 <div class="carousel-caption d-none d-md-block">
                                                     <form action="{{ route('photos.destroy', $image->id) }}" method="POST">
                                                         @csrf @method('DELETE')
@@ -132,53 +136,53 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="title">Book Title</label>
+                                    <label for="title" class="label">Book Title</label>
                                     <input type="text" class="form-control" name="title" id="title" value="{{$product->title}}">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="author">Book Author</label>
+                                    <label for="author" class="label">Book Author</label>
                                     <input type="text" class="form-control" name="author" id="author" value="{{$product->author}}">
                                 </div>
 
                             </div>
 
                                 <div class="form-group">
-                                    <label for="description">Description</label>
+                                    <label for="description" class="label">Description</label>
                                     <textarea class="form-control" name="description" id="description" >{{$product->description}}</textarea>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <label for="publisher">Book Publisher</label>
+                                        <label for="publisher" class="label">Book Publisher</label>
                                         <input type="text" class="form-control" name="publisher" id="publisher" value="{{$product->book_publisher}}">
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="ISBN_NO">International Standard Book Number</label>
+                                        <label for="ISBN_NO" class="label">International Standard Book Number</label>
                                         <input type="text" class="form-control" name="ISBN_NO" id="ISBN_NO" value="{{$product->ISBN_NO}}">
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label for="weight">Weight of Book</label>
+                                        <label for="weight" class="label">Weight of Book</label>
                                         <input class="form-control"  type="number" name="weight" id="weight" value="{{$product->weight}}">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="pages">Pages</label>
+                                        <label for="pages" class="label">Pages</label>
                                         <input class="form-control" type="number" name="pages" id="pages" value="{{$product->pages}}">
                                     </div>
 
 
                                     <div class="form-group col-md-4">
-                                        <label for="quantity">Quantity</label>
+                                        <label for="quantity" class="label">Quantity</label>
                                         <input class="form-control" type="number" name="quantity" id="quantity"  value="{{$product->quantity}}">
                                         </select>
                                     </div>
 
                                     <div class="form-group col-md-2">
-                                        <label for="price">Price</label>
+                                        <label for="price" class="label">Price</label>
                                         <input  class="form-control" type="number" name="price" id="price" value="{{$product->price}}">
                                     </div>
                                 </div>
@@ -186,12 +190,12 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="published_date">Date Published</label>
+                                    <label for="published_date" class="label">Date Published</label>
                                     <input  class="form-control" type="date" name= "published_date" value="{{$product->published_date}}">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="condition">Condition</label>
+                                    <label for="condition" class="label">Condition</label>
                                     {{-- select allows me to create a dropdown --}}
                                     {{-- option allows --}}
                                     <select name="conditionselect" id="condition" class="form-control input-lg dynamic" data-dependent="labSubCat">
@@ -206,7 +210,7 @@
 
                             <div class="form-group col-md-12">
                                 <div id="radio_styling">
-                                    <label class="categories">Select Category</label><br>
+                                    <label class="categories" class="label">Select Category</label><br>
                                     @foreach ($categories as $cats)
                                     <div class="form-check">
                                         <input type="checkbox" name="categories1[]" value="{{ $cats->id }}"

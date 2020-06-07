@@ -78,7 +78,7 @@ class ProductController extends Controller
             return redirect(route('login'));
         }
 
-        $conditions = DB::table('conditions')->select('id','name')->get();
+        $conditions = DB::table('conditions')->select('id','name','description')->get();
         $categories = DB::table('categories')->select('id','name')->get();
         //Condition::all('id');
         return view('products.create')->with([
@@ -113,8 +113,6 @@ class ProductController extends Controller
             $location = public_path('./publc/photos/' . $filename);
             $thumb->move(public_path().'/gallery/',$filename);
         }
-        
-
 
     //     //create Product and store its details in the database
         $product = new Product;
@@ -142,9 +140,7 @@ class ProductController extends Controller
                 $filename =  $name.'-'.time().'.'.$image->getClientOriginalExtension();
                 $location = public_path('./publc/photos/' . $filename);
                 $image->move(public_path().'/gallery/',$filename);
-                // width - height
-                // Images::make($image)->resize(640, 480)->save($location);
-
+ 
                 $photo = new Photo;
                 $photo->product_id = $product->id;
                 $photo->path = $filename;
@@ -156,8 +152,6 @@ class ProductController extends Controller
         // once the product is created it will then sync its categories
         $product->categories()->sync($request->input('categories1'));
         $product->save();
-        
-
 
        //after a successful listing it will display the below message
        //then use the success in the inc (messages file) to display some interactive features    
@@ -222,16 +216,11 @@ class ProductController extends Controller
         $conditionname = DB::table('conditions')->where('name',$product->condition_id)->value('name');
         $conditionid = DB::table('conditions')->where('id',$product->condition_id)->value('id');
 
-       // $categoriesname = DB::table('categories')->where('id',$product->category_id)->value('name');
-        //  $categoriesid = DB::table('categories')->where('id', $product->category_id)->value('id');
-
         return view ('products.edit')->with([   'conditions' => $conditions,
                                                 'product'=>$product,
                                                 'conditionid' =>$conditionid,
                                                 'conditionname' => $conditionname,
                                                 'categories' => $categories
-                                                //'categoriesname' => $categoriesname,
-                                               // 'categoriesid'   => $categoriesid
                                             ]);
     }
 

@@ -172,7 +172,7 @@ class CheckoutController extends Controller
         'error' => $error,
         ]);
 
-
+        // to send notifications
         $id = auth()->user() ? auth()->user()->id :null;
         if(Auth::id() == $id){
             // $order_id = $order->id->orderBy('created_at', 'desc')->first();  
@@ -180,8 +180,6 @@ class CheckoutController extends Controller
             ->get('id')->first(); 
             User::find($id)->notify(new NewOrder($order_id)); 
         }
-
-        // $order_id = $order->value('id'); 
 
       //Insert into the link table, order_product
       foreach (Cart::content() as $item) {
@@ -192,7 +190,7 @@ class CheckoutController extends Controller
               'seller_id' => $item->model->user_id,
               'quantity' => $item->qty,
           ]);
-          
+
       }
 
        return $order;
@@ -204,7 +202,7 @@ class CheckoutController extends Controller
         foreach (Cart::content() as $item){
             // find the item id that is in the cart
             $product = Product::find($item->model->id);
-
+            // remove the cart quantity from the actual quantity
             $product->update(['quantity' => $product->quantity - $item->qty]);
 
         }
@@ -219,5 +217,25 @@ class CheckoutController extends Controller
             }
         }
         return false;
+    }
+
+        /**
+     * Remove the specified notification   
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function MarkRead($id)
+    {
+        //
+        $user = Auth::user();
+        $notification = $user->notifications()->where('id',$id)->first();
+
+        if($notification){
+            $notification->markAsRead();
+            return back();
+        }
+        else
+        return back()->withErrors('Specified notification not found');
     }
 }

@@ -102,7 +102,33 @@
       </div>
     </div>
 
+  </div>
+</div>
 
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Featured</h4>
+      </div>
+      <div class="card-body">
+          <br>
+        <ul class="list-unstyled mt-2 mb-3">
+          <li>Remove featured product</li>
+          <li>Add featured product</li>
+        </ul>
+        <br><br>
+        <a href="/featured"><button type="button" class="btn btn-lg btn-block btn-outline-primary">Manage Featured</button></a>
+      </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+    </div>
+    
   </div>
 </div>
 @endcan

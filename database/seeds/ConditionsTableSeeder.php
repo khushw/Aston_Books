@@ -17,12 +17,12 @@ class ConditionsTableSeeder extends Seeder
 
         $brandNew = Condition::create([
             'name' => 'Brand New',
-            'description' => 'This is not used'
+            'description' => 'Completely unsed book, mint condition'
         ]);
 
         $used = Condition::create([
             'name' => 'Used',
-            'description' => 'Normal wear and tear'
+            'description' => 'Normal wear and tear, scratches and markings on some pages etc'
         ]);
             
     }

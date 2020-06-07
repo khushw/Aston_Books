@@ -50,8 +50,7 @@
                         </li>
                         {{-- below is notifactions dropdown --}}
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>  
                                 <i class="fa fa-bell"></i>
                                 @if(auth()->user()->unreadNotifications->count())
                                 <span class="badge badge-pill badge-primary">{{auth()->user()->unreadNotifications->count()}}</span>
@@ -61,8 +60,15 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('markRead')}}"  style="color: green"> Mark all as read</a>
                                 @foreach (auth()->user()->unreadNotifications as $notification)
-                                    <a class="dropdown-item" href="/orders" > {{$notification->data['data']}}</a>
+                                    <a class="dropdown-item" href="{{url('orders/notifications/'.$notification->id)}}"> {{$notification->data['data']}}</a>
                                 @endforeach
+                                {{-- @foreach (auth()->user()->unreadNotifications as $notification)
+                                <a href="{{url('orders/notifications/'.$notification->id)}}">
+                                    <div class="card-body">
+                                        <a href="/orders"> {{$notification->data['data']}}</a>
+                                    </div> 
+                                </a>    
+                                @endforeach --}}
                                 @foreach (auth()->user()->readNotifications as $notification)
                                     <a class="dropdown-item" href="#" style="color: lightgray;"> {{$notification->data['data']}}</a>
                                 @endforeach

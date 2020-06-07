@@ -15,12 +15,15 @@ Route::get('/test', function () {
     return view('test');
 });
 
+
+// for marking all notifications as read
 Route::get('markAsRead',function(){
-    // User::find(1)->notify(new NewOrder);
     auth()->user()->unreadNotifications->markAsRead();
     return redirect()->back();
-    // return view('index');  
 })->name('markRead');
+
+// to indivudally mark notifications as read
+Route::get('orders/notifications/{id}','CheckoutController@MarkRead');
 
 Auth::routes(['verify' => true]);
 
@@ -29,6 +32,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 // Route::get('/users/{id}/{name}', function($id,$name){
 //     return 'this is a user ' .$id .'with name '.$name;
 // });
+
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
@@ -40,8 +44,8 @@ Route::resource('/products', 'ProductController');
 Route::resource('/photos','PhotoController');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/conditions' ,'ConditionController');
-
-
+Route::resource('/featured', 'FeaturedController',
+                ['names' => ['update' => 'featured.update']]);
 
 
 
@@ -53,8 +57,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('/users', 'UsersController' , ['except' => ['show','create','store']]);
     
 });
-
-
 
 //for the basket
 Route::resource('/carts' ,'CartController');
@@ -98,6 +100,7 @@ Route::get('/search', function () {
 });
 
 
+// routes for the Chat App
 Route::get('/messages', 'ContactsController@index');
 Route::get('/contacts', 'ContactsController@get');
 Route::get('/conversation/{id}', 'ContactsController@getMessagesFor');

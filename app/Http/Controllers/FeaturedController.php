@@ -1,22 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Order;
-use App\OrderProduct;
-use App\Product;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
-use DB;
+use App\Product;
 
-class OrdersController extends Controller
+class FeaturedController extends Controller
 {
-
-    //calls the auth middlewear function to check whetehr it is a logged in user, if not it wil redirect to login page
-    public function __construct(){
-        $this->middleware('auth');
-    }
-        
-    
     /**
      * Display a listing of the resource.
      *
@@ -24,15 +14,10 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //find the id of the user currently logged in
-        $id = Auth::id();
-        //find all the orders, newest order first
-        // $orders = Order::all();
-        $orders = DB::table('orders')
-                ->orderBy('created_at', 'desc')
-                ->get();
+        //return all the products
+        $products = Product::all();
 
-        return view('orders.index')->with(['orders' => $orders , 'id' => $id]);
+        return view('featured.index')->with(["products" => $products]);
     }
 
     /**
@@ -64,17 +49,9 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //find the order 
-        $order = Order::find($id);
-        // find the associated products with the order id
-        $products = $order->products;
-        $shipped = OrderProduct::all();
-
-        $prod = OrderProduct::all();
-       
-        return view('orders.show')->with(["order" => $order, "products" => $products,"shipped"=>$shipped , "prod"=> $prod]);
+        //
     }
-  
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,7 +61,17 @@ class OrdersController extends Controller
     public function edit($id)
     {
         //
+        $product = Product::find($id);
+
+        return view('featured.edit')->with('product' , $product);
     }
+
+    // public function featured($id){
+    //     $product = Product::find($id);
+    //     $product->featured = true;
+    //     $product->save();
+    //     return redirect()->back()->with('success', 'Product is now shipped!');
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -96,6 +83,13 @@ class OrdersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $product = Product::find($id);
+        $product->featured = $request->input('featured');
+
+        $product->save();
+
+        return redirect('/featured')->with('success', 'Product will now appear on Featured!');
+
     }
 
     /**
@@ -108,5 +102,4 @@ class OrdersController extends Controller
     {
         //
     }
-
 }
